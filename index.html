@@ -634,14 +634,14 @@ class Component extends DCLogic {
         var v1 = document.getElementById('va-v1');
         if (!v1) return;
         var showEnd = function () { try { v1.currentTime = Math.max(0, (v1.duration || 5.8) - 0.05); } catch (e) {} };
-        v1.playbackRate = 3.2;
+        v1.playbackRate = 2.3;
         var pr = v1.play();
         if (pr && pr.catch) pr.catch(function () { if (v1.readyState >= 1) showEnd(); else v1.addEventListener('loadedmetadata', showEnd, { once: true }); });
       } catch (e) {}
     }, 30));
     // sin click: el logo se dibuja rápido y la web entra sola
     var me = this;
-    this.timers.push(setTimeout(function () { try { me.renderVals().enter(); } catch (e) {} }, 1450));
+    this.timers.push(setTimeout(function () { try { me.renderVals().enter(); } catch (e) {} }, 2450));
   }
   runSmoke() {
     var start = null, dur = 3200;
