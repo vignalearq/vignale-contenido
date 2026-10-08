@@ -55,30 +55,30 @@ a{color:#363932}a:hover{color:#1f211c}
 .ghostA{animation:ghostA 3s ease-out .15s both;transform-origin:50% 100%;will-change:transform,filter,opacity}
 .ghostB{animation:ghostB 3.1s ease-out .4s both;transform-origin:50% 100%;will-change:transform,filter,opacity}
 @keyframes vfade{0%,78%{opacity:1}100%{opacity:0}}
-.vfade{animation:vfade 2s linear both}
+.vfade{animation:vfade 1.1s linear both}
 @keyframes bgIn{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
 .bgIn{animation:bgIn 1.6s ease-out both}
 @keyframes pillIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .pill{animation:pillIn .6s ease-out .9s both}
 .smoking{filter:url(#va-smoke);animation:smokeRise 3.2s cubic-bezier(.45,.05,.75,1) both;transform-origin:50% 100%}
-.page{animation:pageIn .22s cubic-bezier(.2,.7,.2,1) both}
+.page{animation:pageIn .15s cubic-bezier(.2,.7,.2,1) both}
 .fab{animation:fabIn .5s ease-out .3s both}
 .hint-show{animation:pulse 2.2s ease-in-out 5.4s infinite both}
 .hint-hide{opacity:0}
 .pre{opacity:0}
-.rise1{animation:rise .6s ease-out .05s both}
-.rise2{animation:rise .6s ease-out .2s both}
-.rise3{animation:rise .6s ease-out .35s both}
-.slide{animation:slideIn .4s cubic-bezier(.2,.7,.2,1) both}
-.ink1{animation:inkIn .5s ease-out .05s both}
-.ink2{animation:inkIn .5s ease-out .12s both}
-.ink3{animation:inkIn .5s ease-out .2s both}
-.btnIn{animation:rise .4s ease-out .25s both}
-.row{animation:slideIn .32s cubic-bezier(.2,.7,.2,1) both}
+.rise1{animation:rise .35s ease-out 0s both}
+.rise2{animation:rise .35s ease-out .08s both}
+.rise3{animation:rise .35s ease-out .16s both}
+.slide{animation:slideIn .25s cubic-bezier(.2,.7,.2,1) both}
+.ink1{animation:inkIn .28s ease-out 0s both}
+.ink2{animation:inkIn .28s ease-out .05s both}
+.ink3{animation:inkIn .28s ease-out .1s both}
+.btnIn{animation:rise .25s ease-out .12s both}
+.row{animation:slideIn .2s cubic-bezier(.2,.7,.2,1) both}
 .bob{animation:bob 1.8s ease-in-out infinite}
 .ring{animation:ring 1.8s ease-out infinite}
-.rise4{animation:rise .6s ease-out .5s both}
-.rise5{animation:rise .6s ease-out .7s both}
+.rise4{animation:rise .35s ease-out .24s both}
+.rise5{animation:rise .35s ease-out .32s both}
 .tt{margin:0;font-family:'Archivo',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:-.015em;line-height:1.08;font-size:34px}
 .tt .th,.th{font-family:'Italiana',serif;font-weight:400;letter-spacing:.01em;font-size:1.06em}
 .tl{display:block}
@@ -89,24 +89,24 @@ a{color:#363932}a:hover{color:#1f211c}
 .rv .l.r{text-align:right}.rv .l.c{text-align:center}
 .rv .l>span{display:inline-block;transform:translateY(120%)}
 @keyframes lineUp{from{transform:translateY(120%)}to{transform:none}}
-.rv.on .l>span,.rv.auto .l>span{animation:lineUp .5s cubic-bezier(.08,.82,.54,.99) both}
-.rv .l:nth-child(1)>span{animation-delay:.02s}.rv .l:nth-child(2)>span{animation-delay:.09s}.rv .l:nth-child(3)>span{animation-delay:.16s}.rv .l:nth-child(4)>span{animation-delay:.23s}
+.rv.on .l>span,.rv.auto .l>span{animation:lineUp .32s cubic-bezier(.08,.82,.54,.99) both}
+.rv .l:nth-child(1)>span{animation-delay:0s}.rv .l:nth-child(2)>span{animation-delay:.05s}.rv .l:nth-child(3)>span{animation-delay:.1s}.rv .l:nth-child(4)>span{animation-delay:.15s}
 .rv.wrap .l{white-space:normal}.rv.wrap .l>span{display:block}
 .estT{transform-origin:0 0}
-.estT.shrink{transition:transform .5s cubic-bezier(.65,.05,.36,1)}
+.estT.shrink{transition:transform .3s cubic-bezier(.65,.05,.36,1)}
 .bands.dim{opacity:.45}
-.bands{transition:opacity .45s ease;position:absolute;top:0;left:0;right:0;height:100%;pointer-events:none;overflow:hidden}
+.bands{transition:opacity .25s ease;position:absolute;top:0;left:0;right:0;height:100%;pointer-events:none;overflow:hidden}
 .bands .media{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:.34;max-width:none}
 .bands video.media{opacity:.5}
 .cov{position:absolute;height:34%;width:160%;will-change:transform}
-.cL{left:0;background:linear-gradient(90deg,rgba(242,241,236,0) 0,#F2F1EC 25%);animation:covL .55s cubic-bezier(.65,.05,.36,1) both}
-.cR{right:0;background:linear-gradient(270deg,rgba(242,241,236,0) 0,#F2F1EC 25%);animation:covR .55s cubic-bezier(.65,.05,.36,1) both}
+.cL{left:0;background:linear-gradient(90deg,rgba(242,241,236,0) 0,#F2F1EC 25%);animation:covL .32s cubic-bezier(.65,.05,.36,1) both}
+.cR{right:0;background:linear-gradient(270deg,rgba(242,241,236,0) 0,#F2F1EC 25%);animation:covR .32s cubic-bezier(.65,.05,.36,1) both}
 @keyframes covL{from{transform:translateX(-25%)}to{transform:translateX(62.5%)}}
 @keyframes covR{from{transform:translateX(25%)}to{transform:translateX(-62.5%)}}
-.b0{top:0;height:100%;animation-delay:.02s;animation-duration:.65s!important}.b1{top:0;animation-delay:.02s}.b2{top:33.33%;animation-delay:.08s}.b3{top:66.66%;animation-delay:.14s}
+.b0{top:0;height:100%;animation-delay:0s;animation-duration:.38s!important}.b1{top:0;animation-delay:0s}.b2{top:33.33%;animation-delay:.04s}.b3{top:66.66%;animation-delay:.08s}
 @media (prefers-reduced-motion: reduce){.cov{display:none}}
-.rv.late .l>span{animation-delay:.4s!important}
-.projT{transition:transform .45s cubic-bezier(.65,.05,.36,1)}
+.rv.late .l>span{animation-delay:.18s!important}
+.projT{transition:transform .28s cubic-bezier(.65,.05,.36,1)}
 .ln1{animation:lineIn .9s cubic-bezier(.2,.7,.2,1) .1s both}
 .ln2{animation:lineIn .9s cubic-bezier(.2,.7,.2,1) .28s both}
 .ln3{animation:lineIn .9s cubic-bezier(.2,.7,.2,1) .46s both}
@@ -497,7 +497,7 @@ a{color:#363932}a:hover{color:#1f211c}
 </template>
 
 <template v-if="showSplash">
-<button type="button" @click="enter" aria-label="Entrar al sitio" :style="`position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; background: ${splashBg}; border: none; padding: 0; margin: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px; transition: background-color .9s ease .2s`">
+<button type="button" @click="enter" aria-label="Entrar al sitio" :style="`position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; background: ${splashBg}; border: none; padding: 0; margin: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px; transition: background-color .5s ease .05s`">
 <video class="splv" id="va-v1" :src="isDesk ? 'video/intro-escritura-h.mp4' : 'video/intro-escritura.mp4'" muted autoplay playsinline preload="auto" aria-hidden="true" :style="`position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; opacity: ${leaving ? 0 : 1}`"></video>
 <video class="splv" id="va-v2" :src="isDesk ? 'video/intro-humo-h.mp4' : 'video/intro-humo.mp4'" muted playsinline preload="auto" aria-hidden="true" :class="leaving ? 'vfade' : ''" :style="`position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; opacity: ${leaving ? 1 : 0}`"></video>
 <span :class="hintClass" style="position: absolute; bottom: 48px; left: 0; right: 0; text-align: center; color: #F2F1EC; font-family: 'Nunito Sans', sans-serif; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase">Tocá para entrar</span>
@@ -545,10 +545,10 @@ class DCLogic {
       var me2 = this, tok = (this.projTok = (this.projTok || 0) + 1);
       setTimeout(function () { try { document.querySelectorAll('.bands video').forEach(function (v) { v.muted = true; v.defaultMuted = true; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }); } catch (e) {} }, 60);
       setTimeout(function () { try { var el = document.getElementById('va-projT'); var pg = el && el.offsetParent; if (el && pg && tok === me2.projTok) me2.setState({ projY: Math.max(0, Math.round((pg.clientHeight - el.offsetHeight) / 2 - el.offsetTop)) }); } catch (e) {} }, 30);
-      setTimeout(function () { if (tok === me2.projTok && me2.projOn === rk) me2.setState({ projStage: 1 }); }, 1000);
-      setTimeout(function () { if (tok === me2.projTok && me2.projOn === rk) me2.setState({ projStage: 2 }); }, 1300);
+      setTimeout(function () { if (tok === me2.projTok && me2.projOn === rk) me2.setState({ projStage: 1 }); }, 520);
+      setTimeout(function () { if (tok === me2.projTok && me2.projOn === rk) me2.setState({ projStage: 2 }); }, 700);
     } else if (!projNow) { this.projOn = null; }
-    if (!was && this.state.estudioSeen) { this.state.estSmall = false; this.state.estS = 1; this.state.estY = 0; var me = this; prepEstudio(function (sc, y) { me.setState({ estS: sc, estY: y }); }); setTimeout(function () { me.setState({ estSmall: true }); }, 800); }
+    if (!was && this.state.estudioSeen) { this.state.estSmall = false; this.state.estS = 1; this.state.estY = 0; var me = this; prepEstudio(function (sc, y) { me.setState({ estS: sc, estY: y }); }); setTimeout(function () { me.setState({ estSmall: true }); }, 450); }
     __refresh();
   }
 }
@@ -749,13 +749,13 @@ class Component extends DCLogic {
       isContacto: view === 'contacto',
       d: Object.assign({}, d, { titleHtml: fxTitle(d.title) }),
       services: SERVICIOS.map(function (s, i) {
-        return { n: s.n, name: s.name, desc: s.desc, img: (s.reveal && !/\.mp4$/.test(s.reveal)) ? s.reveal : '', delay: (0.03 + i * 0.045).toFixed(2) + 's', open: s.sub ? go(s.sub) : go('servicio', { sel: s.id }) };
+        return { n: s.n, name: s.name, desc: s.desc, img: (s.reveal && !/\.mp4$/.test(s.reveal)) ? s.reveal : '', delay: (0.01 + i * 0.025).toFixed(2) + 's', open: s.sub ? go(s.sub) : go('servicio', { sel: s.id }) };
       }),
       manos: MANO.map(function (r, i) {
-        return { n: r.n, name: r.name, desc: r.desc, img: r.reveal || '', delay: (0.03 + i * 0.045).toFixed(2) + 's', open: go('manoitem', { sel: r.id }) };
+        return { n: r.n, name: r.name, desc: r.desc, img: r.reveal || '', delay: (0.01 + i * 0.025).toFixed(2) + 's', open: go('manoitem', { sel: r.id }) };
       }),
       reformas: REFORMAS.map(function (r, i) {
-        return { n: r.n, name: r.name, desc: r.desc, img: r.reveal || '', delay: (0.03 + i * 0.045).toFixed(2) + 's', open: go('reforma', { sel: r.id }) };
+        return { n: r.n, name: r.name, desc: r.desc, img: r.reveal || '', delay: (0.01 + i * 0.025).toFixed(2) + 's', open: go('reforma', { sel: r.id }) };
       }),
       menu: [
         { label: 'Inicio', go: function () { self.setState({ view: 'home', menuOpen: false, atTop: true }); self.scrollHome(0); } },
@@ -811,8 +811,8 @@ class Component extends DCLogic {
         self.clearTimers();
         self.setState({ phase: 'leaving', wordIn: true });
         try { var v2 = document.getElementById('va-v2'); if (v2) { v2.currentTime = 0; var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}); } } catch (e) {}
-        self.timers.push(setTimeout(function () { self.setState({ heroIn: true }); }, 1400));
-        self.timers.push(setTimeout(function () { self.setState({ phase: 'site' }); }, 2000));
+        self.timers.push(setTimeout(function () { self.setState({ heroIn: true }); }, 700));
+        self.timers.push(setTimeout(function () { self.setState({ phase: 'site' }); }, 1100));
       },
       goHome: function () { self.startIntro(); },
       toggleMenu: function () { self.setState({ menuOpen: !menuOpen }); }
