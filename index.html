@@ -202,7 +202,7 @@ a{color:#363932}a:hover{color:#1f211c}
 <template v-if="isHome">
 <div id="va-scroller" @scroll="onScroll" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; background: #F2F1EC">
 
-<section class="hero" style="position: sticky; top: 0; height: 100%; scroll-snap-align: start; background: #1F211C; color: #F2F1EC; box-sizing: border-box; padding: 0 24px 34px; display: flex; flex-direction: column; justify-content: center; overflow: hidden">
+<section class="hero" @click="toEstudio" style="cursor: pointer; position: sticky; top: 0; height: 100%; scroll-snap-align: start; background: #1F211C; color: #F2F1EC; box-sizing: border-box; padding: 0 24px 34px; display: flex; flex-direction: column; justify-content: center; overflow: hidden">
 <img src="img/hero-foto.webp" alt="" :class="heroP" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.42; pointer-events: none">
 <div class="heroIn" style="position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 26px; margin-top: 30px; width: 100%">
 <img src="img/logo-wordmark.png" alt="Vignale Arquitectura" :class="heroA" style="width: 150px; height: auto; display: block">
@@ -808,7 +808,7 @@ class Component extends DCLogic {
         var top = t < 380;
         if (top !== (cur.atTop !== false)) self.setState({ atTop: top });
       },
-      toEstudio: function () { self.scrollHome(-1); },
+      toEstudio: function (e) { if (e && e.stopPropagation) e.stopPropagation(); self.setState({ estudioSeen: true, atTop: false }); self.scrollHome(-1); },
       toServicios: go('servicios'),
       enter: function () {
         if (phase !== 'splash') return;
@@ -817,8 +817,6 @@ class Component extends DCLogic {
         try { var v2 = document.getElementById('va-v2'); if (v2) { v2.currentTime = 0; v2.playbackRate = 2; var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}); } } catch (e) {}
         self.timers.push(setTimeout(function () { self.setState({ heroIn: true }); }, 380));
         self.timers.push(setTimeout(function () { self.setState({ phase: 'site' }); }, 650));
-        // y pasa solo a "El estudio" (todo en ~3 s desde que abre)
-        self.timers.push(setTimeout(function () { var c = self.state || {}; if (c.view === 'home' && c.atTop !== false && !c.menuOpen) { self.setState({ estudioSeen: true, atTop: false }); self.scrollHome(-1); } }, 1150));
       },
       goHome: function () { self.startIntro(); },
       toggleMenu: function () { self.setState({ menuOpen: !menuOpen }); }
