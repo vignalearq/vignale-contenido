@@ -55,7 +55,7 @@ a{color:#363932}a:hover{color:#1f211c}
 .ghostA{animation:ghostA 3s ease-out .15s both;transform-origin:50% 100%;will-change:transform,filter,opacity}
 .ghostB{animation:ghostB 3.1s ease-out .4s both;transform-origin:50% 100%;will-change:transform,filter,opacity}
 @keyframes vfade{0%,78%{opacity:1}100%{opacity:0}}
-.vfade{animation:vfade .7s linear both}
+.vfade{animation:vfade 1.7s linear both}
 @keyframes bgIn{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
 .bgIn{animation:bgIn 1.6s ease-out both}
 @keyframes pillIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -497,7 +497,7 @@ a{color:#363932}a:hover{color:#1f211c}
 </template>
 
 <template v-if="showSplash">
-<button type="button" @click="enter" aria-label="Entrar al sitio" :style="`position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; background: ${splashBg}; border: none; padding: 0; margin: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px; transition: background-color .5s ease .05s`">
+<button type="button" @click="enter" aria-label="Entrar al sitio" :style="`position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; background: ${splashBg}; border: none; padding: 0; margin: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px; transition: background-color 1.2s ease .1s`">
 <video class="splv" id="va-v1" :src="isDesk ? 'video/intro-escritura-h.mp4' : 'video/intro-escritura.mp4'" muted autoplay playsinline preload="auto" aria-hidden="true" :style="`position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; opacity: ${leaving ? 0 : 1}`"></video>
 <video class="splv" id="va-v2" :src="isDesk ? 'video/intro-humo-h.mp4' : 'video/intro-humo.mp4'" muted playsinline preload="auto" aria-hidden="true" :class="leaving ? 'vfade' : ''" :style="`position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; opacity: ${leaving ? 1 : 0}`"></video>
 <span :class="hintClass" style="position: absolute; bottom: 48px; left: 0; right: 0; text-align: center; color: #F2F1EC; font-family: 'Nunito Sans', sans-serif; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase">Tocá para entrar</span>
@@ -814,9 +814,9 @@ class Component extends DCLogic {
         if (phase !== 'splash') return;
         self.clearTimers();
         self.setState({ phase: 'leaving', wordIn: true });
-        try { var v2 = document.getElementById('va-v2'); if (v2) { v2.currentTime = 0; v2.playbackRate = 2; var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}); } } catch (e) {}
-        self.timers.push(setTimeout(function () { self.setState({ heroIn: true }); }, 380));
-        self.timers.push(setTimeout(function () { self.setState({ phase: 'site' }); }, 650));
+        try { var v2 = document.getElementById('va-v2'); if (v2) { v2.currentTime = 0; v2.playbackRate = 1.3; var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}); } } catch (e) {}
+        self.timers.push(setTimeout(function () { self.setState({ heroIn: true }); }, 1150));
+        self.timers.push(setTimeout(function () { self.setState({ phase: 'site' }); }, 1700));
       },
       goHome: function () { self.startIntro(); },
       toggleMenu: function () { self.setState({ menuOpen: !menuOpen }); }
