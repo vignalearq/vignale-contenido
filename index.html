@@ -625,7 +625,7 @@ class Component extends DCLogic {
   componentWillUnmount() { this.clearTimers(); }
   clearTimers() { (this.timers || []).forEach(function (t) { clearTimeout(t); }); this.timers = []; }
   startIntro() {
-    this.clearTimers();
+    this.clearTimers(); this.entering = false;
     this.setState({ phase: 'splash', wordIn: false, heroIn: false, menuOpen: false, view: 'home', sel: null, estudioSeen: false, estSmall: false, atTop: true });
     try { var sc = document.getElementById('va-scroller'); if (sc) { sc.style.scrollBehavior = 'auto'; sc.scrollTop = 0; sc.style.scrollBehavior = 'smooth'; } } catch (e) {}
     this.timers.push(setTimeout(() => this.setState({ wordIn: true }), 1300));
@@ -635,6 +635,7 @@ class Component extends DCLogic {
         if (!v1) return;
         var showEnd = function () { try { v1.currentTime = Math.max(0, (v1.duration || 5.8) - 0.05); } catch (e) {} };
         v1.playbackRate = 2.3;
+        try { var v2p = document.getElementById('va-v2'); if (v2p) { v2p.load(); } } catch (e) {}
         var pr = v1.play();
         if (pr && pr.catch) pr.catch(function () { if (v1.readyState >= 1) showEnd(); else v1.addEventListener('loadedmetadata', showEnd, { once: true }); });
       } catch (e) {}
@@ -811,12 +812,25 @@ class Component extends DCLogic {
       toEstudio: function (e) { if (e && e.stopPropagation) e.stopPropagation(); self.setState({ estudioSeen: true, atTop: false }); self.scrollHome(-1); },
       toServicios: go('servicios'),
       enter: function () {
-        if (phase !== 'splash') return;
+        if (phase !== 'splash' || self.entering) return;
+        self.entering = true;
         self.clearTimers();
-        self.setState({ phase: 'leaving', wordIn: true });
-        try { var v2 = document.getElementById('va-v2'); if (v2) { v2.currentTime = 0; v2.playbackRate = 1.3; var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}); } } catch (e) {}
-        self.timers.push(setTimeout(function () { self.setState({ heroIn: true }); }, 1150));
-        self.timers.push(setTimeout(function () { self.setState({ phase: 'site' }); }, 1700));
+        var go = function () {
+          if (!self.entering) return; self.entering = false;
+          self.setState({ phase: 'leaving', wordIn: true });
+          self.timers.push(setTimeout(function () { self.setState({ heroIn: true }); }, 1150));
+          self.timers.push(setTimeout(function () { self.setState({ phase: 'site' }); }, 1700));
+        };
+        // el humo arranca recién cuando el video ya se está reproduciendo (evita el salto en celulares)
+        try {
+          var v2 = document.getElementById('va-v2');
+          if (v2) {
+            v2.currentTime = 0; v2.playbackRate = 1.3;
+            v2.addEventListener('playing', go, { once: true });
+            var pr = v2.play(); if (pr && pr.then) pr.then(function () { setTimeout(go, 30); }).catch(go);
+          } else { go(); }
+        } catch (e) { go(); }
+        self.timers.push(setTimeout(go, 900));
       },
       goHome: function () { self.startIntro(); },
       toggleMenu: function () { self.setState({ menuOpen: !menuOpen }); }
