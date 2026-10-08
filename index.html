@@ -13,7 +13,7 @@
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+
 <title>Vignale Arquitectura</title>
 <meta name="theme-color" content="#363932">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,18 +111,102 @@ a{color:#363932}a:hover{color:#1f211c}
 .ln2{animation:lineIn .9s cubic-bezier(.2,.7,.2,1) .28s both}
 .ln3{animation:lineIn .9s cubic-bezier(.2,.7,.2,1) .46s both}
 
+/* ===== Computadora (>= 1000px): misma web, otra distribución ===== */
+.dnav{display:none}
+.hov{display:none}
+.desk.root{max-width:none!important}
+.desk .dnav{display:flex;gap:34px;align-items:center;margin-left:auto;margin-right:20px}
+.desk .dnav button{font:inherit;background:none;border:none;color:#F2F1EC;cursor:pointer;display:flex;align-items:baseline;gap:8px;padding:8px 0;font-family:'Archivo',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;transition:opacity .2s}
+.desk .dnav button:hover{opacity:1}
+.desk .dnav button .n{font-family:'Italiana',serif;font-weight:400;font-size:15px;letter-spacing:0}
+.desk .hamb{display:none!important}
+.desk header{height:84px!important;padding:0 4vw!important}
+.desk .hero{padding:0 8vw 40px!important}
+.desk .heroIn{max-width:1180px}
+.desk .heroIn img{width:220px!important}
+.desk .estudio{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:7vw;row-gap:28px;padding:150px 8vw 110px!important;align-content:center}
+.desk .estudio .est-t{grid-column:1;grid-row:1 / span 3;align-self:center}
+.desk .estudio .est-t h2{font-size:64px!important}
+.desk .estudio .est-p{grid-column:2;grid-row:1;text-align:left!important;font-size:17px!important;max-width:520px;align-self:end}
+.desk .estudio .est-n{grid-column:2;grid-row:2;justify-content:flex-start!important;max-width:520px}
+.desk .estudio .est-b{grid-column:2;grid-row:3;margin-top:0!important;max-width:520px;align-self:start}
+.desk .page.lst{padding:130px 8vw 90px!important;gap:30px!important}
+.desk .page.lst .head{max-width:760px}
+.desk .page.lst .tt{font-size:58px}
+.desk .page.lst .grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:1px!important}
+.desk .page.lst .grid.g2{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.desk .page.lst .grid>button{position:relative;overflow:hidden;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start;min-height:250px;padding:28px 28px 30px!important;gap:22px!important;transition:background-color .3s}
+.desk .page.lst .grid>button>*{position:relative}
+.desk .page.lst .grid>button>svg{position:absolute!important;right:24px;bottom:26px;transition:transform .3s}
+.desk .page.lst .grid>button:hover>svg{transform:translateX(6px)}
+.desk .page.lst .grid>button:hover{background:#ECEAE3!important}
+.desk .page.lst .grid>button .hov{display:block;position:absolute!important;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .45s ease,transform .8s ease;pointer-events:none}
+.desk .page.lst .grid>button:hover .hov{opacity:.32;transform:none}
+.desk .page.detail{padding:130px 7vw 80px calc(50% + 5vw)!important;gap:24px!important}
+.desk .page.detail>*{max-width:600px}
+.desk .page.detail .tt{font-size:52px}
+.desk .page.detail .bands{width:50%!important;max-width:none}
+.desk .page.detail .bands .media{opacity:.9}
+.desk .page.detail .bands video.media{opacity:.9}
+.desk .page.detail .bands.dim{opacity:1}
+.desk .page.detail .txt{text-align:left!important;font-size:17px!important}
+.desk .page.narrow{padding:130px calc(50% - 340px) 90px!important}
+.desk .page.narrow .tt{font-size:52px}
+.desk .fabw{left:auto!important;right:36px;bottom:32px!important;width:60px!important;height:60px!important}
+
+/* Compu: todo más grande y con menos aire */
+.desk .dnav{gap:40px}
+.desk .dnav button{font-size:15px}
+.desk .dnav button .n{font-size:18px}
+.desk .heroIn{max-width:1500px}
+.desk .heroIn img{width:280px!important}
+.desk p[style*="letter-spacing: 0.24em"]{font-size:15px!important}
+.desk .estudio{padding:120px max(6vw, calc((100% - 1500px) / 2)) 80px!important;column-gap:6vw;row-gap:34px;grid-template-rows:auto auto auto;align-content:center}
+.desk .estudio .est-t h2{font-size:clamp(54px,4.9vw,92px)!important}
+.desk .estudio .est-p{font-size:21px!important;max-width:620px;gap:18px!important}
+.desk .estudio .est-n{max-width:620px;gap:72px!important;padding:18px 0!important}
+.desk .estudio .est-n .th{font-size:76px!important}
+.desk .estudio .est-n span:not(.th){font-size:17px!important}
+.desk .estudio .est-b{max-width:620px}
+.desk .estudio .est-b button,.desk .page button[style*="padding: 15px 8px"]{font-size:18px!important;padding:20px 8px!important}
+.desk .page.lst{padding:120px 6vw 80px!important;gap:36px!important}
+.desk .page.lst .head{max-width:1000px}
+.desk .page.lst .tt{font-size:clamp(52px,5.2vw,84px)}
+.desk .page.lst .head p:last-child{font-size:20px!important;max-width:760px}
+.desk .page.lst .grid>button{min-height:300px;padding:34px 34px 36px!important}
+.desk .page.lst .grid>button>span:nth-of-type(1){font-size:44px!important}
+.desk .page.lst .grid>button>span:nth-of-type(2)>span:first-child{font-size:25px!important}
+.desk .page.lst .grid>button>span:nth-of-type(2)>span:last-child{font-size:18px!important;line-height:1.55!important}
+.desk .page.detail{padding:120px 6vw 70px calc(50% + 4vw)!important;gap:28px!important}
+.desk .page.detail>*{max-width:680px}
+.desk .page.detail .tt{font-size:clamp(46px,4.4vw,74px)}
+.desk .page.detail .txt{font-size:21px!important;gap:18px!important}
+.desk .page.detail ul li{font-size:19px!important;padding:16px 2px!important}
+.desk .page.detail ul li span:first-child{font-size:24px!important}
+.desk .page.detail .prices span{font-size:19px!important}
+.desk .page.detail .prices span+span{font-size:16px!important}
+.desk .page.detail .prices .val{font-size:30px!important}
+.desk .page.detail .prices p{font-size:15px!important}
+.desk .page.detail a[aria-label^="WhatsApp"]{font-size:20px!important;min-height:68px!important}
+.desk .page.narrow{padding:120px calc(50% - 400px) 80px!important;gap:24px!important}
+.desk .page.narrow .tt{font-size:clamp(48px,4.6vw,70px)}
+.desk .page.narrow p,.desk .page.narrow a{font-size:19px!important}
+.desk .page.narrow label{font-size:16px!important}
+.desk .page.narrow input,.desk .page.narrow select,.desk .page.narrow textarea{font-size:18px!important}
+.desk .page>button:first-child,.desk .page>button[style*="align-self: flex-start"]{font-size:16px!important}
+
 </style>
 <div id="app"></div>
-<script type="text/x-template" id="tpl"><div style="position: relative; width: 100%; max-width: 480px; height: 100%; margin: 0 auto; overflow: hidden; background: #F2F1EC; font-family: 'Nunito Sans', system-ui, sans-serif; color: #363932">
+<script type="text/x-template" id="tpl"><div class="root" :class="deskCls" style="position: relative; width: 100%; max-width: 480px; height: 100%; margin: 0 auto; overflow: hidden; background: #F2F1EC; font-family: 'Nunito Sans', system-ui, sans-serif; color: #363932">
 
 <template v-if="isHome">
 <div id="va-scroller" @scroll="onScroll" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; background: #F2F1EC">
 
-<section style="position: sticky; top: 0; height: 100%; scroll-snap-align: start; background: #1F211C; color: #F2F1EC; box-sizing: border-box; padding: 0 24px 34px; display: flex; flex-direction: column; justify-content: center; overflow: hidden">
+<section class="hero" style="position: sticky; top: 0; height: 100%; scroll-snap-align: start; background: #1F211C; color: #F2F1EC; box-sizing: border-box; padding: 0 24px 34px; display: flex; flex-direction: column; justify-content: center; overflow: hidden">
 <img src="img/hero-foto.webp" alt="" :class="heroP" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.42; pointer-events: none">
-<div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 26px; margin-top: 30px; width: 100%">
+<div class="heroIn" style="position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 26px; margin-top: 30px; width: 100%">
 <img src="img/logo-wordmark.png" alt="Vignale Arquitectura" :class="heroA" style="width: 150px; height: auto; display: block">
-<h1 class="tt rv fit" :class="heroOn" data-max="44" style="align-self: stretch; line-height: 1.12; color: #F2F1EC">
+<h1 class="tt rv fit" :class="heroOn" :data-max="isDesk ? 150 : 44" style="align-self: stretch; line-height: 1.12; color: #F2F1EC">
 <span class="l"><span>Proyectamos <span class="th">tu obra.</span></span></span>
 <span class="l r"><span><span class="th">Y la</span> construimos</span></span>
 <span class="l r"><span><span class="th">con vos.</span></span></span>
@@ -135,20 +219,20 @@ a{color:#363932}a:hover{color:#1f211c}
 </button>
 </section>
 
-<section style="position: relative; z-index: 1; background: #F2F1EC; min-height: 100%; overflow-x: hidden; scroll-snap-align: start; box-sizing: border-box; box-shadow: 0 -18px 40px rgba(0,0,0,.35); padding: 92px 28px 86px; display: flex; flex-direction: column; gap: 18px">
-<div style="display: flex; flex-direction: column; gap: 10px">
+<section class="estudio" style="position: relative; z-index: 1; background: #F2F1EC; min-height: 100%; overflow-x: hidden; scroll-snap-align: start; box-sizing: border-box; box-shadow: 0 -18px 40px rgba(0,0,0,.35); padding: 92px 28px 86px; display: flex; flex-direction: column; gap: 18px">
+<div class="est-t" style="display: flex; flex-direction: column; gap: 10px">
 <p :class="estA" style="margin: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #4F524A">El estudio</p>
 <div id="va-estT" class="estT" :class="estShrink ? 'shrink' : ''" :style="estStyle"><h2 class="tt rv" :class="seenOn" style="font-size: 30px; line-height: 1.1; width: max-content"><span class="l"><span>Arquitectura</span></span><span class="l r"><span class="th">pensada para</span></span><span class="l"><span>construirse.</span></span></h2></div>
 </div>
-<div style="display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.6; text-align: center">
+<div class="est-p" style="display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.6; text-align: center">
 <p :class="estB" style="margin: 0">Somos Vignale Arquitectura, un estudio de Bahía Blanca. Diseñamos viviendas, ampliaciones y espacios comerciales, y acompañamos cada obra hasta la entrega de llaves.</p>
 <p :class="estC" style="margin: 0">Trabajamos con un equipo de construcción de confianza, lo que nos permite pensar cada proyecto con costos y tiempos reales desde el primer plano.</p>
 </div>
-<div :class="estD" style="display: flex; justify-content: center; gap: 48px; padding: 10px 0; border-top: 1px solid #C9C7BE; border-bottom: 1px solid #C9C7BE">
+<div class="est-n" :class="estD" style="display: flex; justify-content: center; gap: 48px; padding: 10px 0; border-top: 1px solid #C9C7BE; border-bottom: 1px solid #C9C7BE">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 2px"><span class="th" style="font-size: 44px; line-height: 1">36</span><span style="font-size: 13px">obras realizadas</span></div>
 <div style="display: flex; flex-direction: column; align-items: center; gap: 2px"><span class="th" style="font-size: 44px; line-height: 1">5</span><span style="font-size: 13px">años de trayectoria</span></div>
 </div>
-<div :class="estE" style="margin-top: auto; display: flex; flex-direction: column">
+<div class="est-b" :class="estE" style="margin-top: auto; display: flex; flex-direction: column">
 <button type="button" @click="toServicios" style="font: inherit; font-weight: 600; font-size: 15px; border: 1px solid #363932; background: none; color: #363932; padding: 15px 8px; cursor: pointer">Ver servicios</button>
 </div>
 </section>
@@ -157,19 +241,20 @@ a{color:#363932}a:hover{color:#1f211c}
 </template>
 
 <template v-if="isServicios">
-<div class="page" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #E6E4DC; box-sizing: border-box; padding: 76px 24px 90px; display: flex; flex-direction: column; gap: 18px">
+<div class="page lst" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #E6E4DC; box-sizing: border-box; padding: 76px 24px 90px; display: flex; flex-direction: column; gap: 18px">
 <button type="button" @click="goBack" style="font: inherit; font-size: 14px; font-weight: 600; color: inherit; background: none; border: none; padding: 10px 0; min-height: 44px; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: 8px">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
 <span>{{backLabel}}</span>
 </button>
-<div style="display: flex; flex-direction: column; gap: 10px">
+<div class="head" style="display: flex; flex-direction: column; gap: 10px">
 <p class="slide" style="margin: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #4F524A">Servicios</p>
 <h2 class="tt rv wrap auto"><span class="l"><span>Todo lo que <span class="th">necesita</span> tu obra.</span></span></h2>
 <p class="slide" style="margin: 0; font-size: 15px; line-height: 1.55">Elegí lo que más se parezca a lo que necesitás. Si no estás seguro, escribinos por WhatsApp y te orientamos.</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
+<div class="grid" style="display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
 <template v-for="(s, _i) in services" :key="_i">
 <button type="button" @click="s.open" class="row" :style="`animation-delay: ${s.delay}; font: inherit; color: #363932; background: #F2F1EC; border: none; padding: 18px 16px 18px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; text-align: left`">
+<template v-if="s.img"><img class="hov" :src="s.img" alt=""></template>
 <span style="font-family: 'Italiana', serif; font-size: 26px; color: #4F524A; align-self: flex-start">{{s.n}}</span>
 <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px">
 <span style="font-size: 17px; font-weight: 700">{{s.name}}</span>
@@ -183,19 +268,20 @@ a{color:#363932}a:hover{color:#1f211c}
 </template>
 
 <template v-if="isReformas">
-<div class="page" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #E6E4DC; box-sizing: border-box; padding: 76px 24px 90px; display: flex; flex-direction: column; gap: 18px">
+<div class="page lst" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #E6E4DC; box-sizing: border-box; padding: 76px 24px 90px; display: flex; flex-direction: column; gap: 18px">
 <button type="button" @click="goBack" style="font: inherit; font-size: 14px; font-weight: 600; color: inherit; background: none; border: none; padding: 10px 0; min-height: 44px; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: 8px">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
 <span>{{backLabel}}</span>
 </button>
-<div style="display: flex; flex-direction: column; gap: 10px">
+<div class="head" style="display: flex; flex-direction: column; gap: 10px">
 <p class="slide" style="margin: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #4F524A">05 · Reformas</p>
 <h2 class="tt rv wrap auto"><span class="l"><span><span class="th">¿Qué querés</span> reformar?</span></span></h2>
 <p class="slide" style="margin: 0; font-size: 15px; line-height: 1.55">Contanos qué querés cambiar y armamos un plan por etapas, con costos claros desde el principio.</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
+<div class="grid g2" style="display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
 <template v-for="(r, _i) in reformas" :key="_i">
 <button type="button" @click="r.open" class="row" :style="`animation-delay: ${r.delay}; font: inherit; color: #363932; background: #F2F1EC; border: none; padding: 18px 16px 18px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; text-align: left`">
+<template v-if="r.img"><img class="hov" :src="r.img" alt=""></template>
 <span style="font-family: 'Italiana', serif; font-size: 26px; color: #4F524A; align-self: flex-start">{{r.n}}</span>
 <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px">
 <span style="font-size: 17px; font-weight: 700">{{r.name}}</span>
@@ -209,19 +295,20 @@ a{color:#363932}a:hover{color:#1f211c}
 </template>
 
 <template v-if="isMano">
-<div class="page" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #E6E4DC; box-sizing: border-box; padding: 76px 24px 90px; display: flex; flex-direction: column; gap: 18px">
+<div class="page lst" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #E6E4DC; box-sizing: border-box; padding: 76px 24px 90px; display: flex; flex-direction: column; gap: 18px">
 <button type="button" @click="goBack" style="font: inherit; font-size: 14px; font-weight: 600; color: inherit; background: none; border: none; padding: 10px 0; min-height: 44px; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: 8px">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
 <span>{{backLabel}}</span>
 </button>
-<div style="display: flex; flex-direction: column; gap: 10px">
+<div class="head" style="display: flex; flex-direction: column; gap: 10px">
 <p class="slide" style="margin: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #4F524A">06 · Mano de obra</p>
 <h2 class="tt rv wrap auto"><span class="l"><span><span class="th">¿Qué trabajo</span> necesitás?</span></span></h2>
 <p class="slide" style="margin: 0; font-size: 15px; line-height: 1.55">Trabajos puntuales en tu casa, sin necesidad de un proyecto completo.</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
+<div class="grid g2" style="display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
 <template v-for="(r, _i) in manos" :key="_i">
 <button type="button" @click="r.open" class="row" :style="`animation-delay: ${r.delay}; font: inherit; color: #363932; background: #F2F1EC; border: none; padding: 18px 16px 18px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; text-align: left`">
+<template v-if="r.img"><img class="hov" :src="r.img" alt=""></template>
 <span style="font-family: 'Italiana', serif; font-size: 26px; color: #4F524A; align-self: flex-start">{{r.n}}</span>
 <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px">
 <span style="font-size: 17px; font-weight: 700">{{r.name}}</span>
@@ -235,7 +322,7 @@ a{color:#363932}a:hover{color:#1f211c}
 </template>
 
 <template v-if="isDetail">
-<div class="page" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #F2F1EC; box-sizing: border-box; padding: 76px 28px 96px; display: flex; flex-direction: column; gap: 20px">
+<div class="page detail" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #F2F1EC; box-sizing: border-box; padding: 76px 28px 96px; display: flex; flex-direction: column; gap: 20px">
 <template v-if="d.reveal">
 <div class="bands" :class="projStage > 1 ? 'dim' : ''" aria-hidden="true" :key="'b' + d.title">
 <template v-if="d.revealVideo"><video class="media" muted autoplay loop playsinline preload="auto"><source :src="d.reveal.replace('.mp4', '.webm')" type="video/webm"><source :src="d.reveal" type="video/mp4"></video></template>
@@ -255,16 +342,16 @@ a{color:#363932}a:hover{color:#1f211c}
 <p :class="d.reveal ? (projStage > 0 ? 'slide' : 'pre') : 'slide'" style="margin: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #4F524A">{{d.eyebrow}}</p>
 <h2 class="tt rv wrap auto" :class="d.reveal ? 'late' : ''" :key="d.title"><span class="l"><span v-html="d.titleHtml"></span></span></h2>
 </div>
-<div :style="`position: relative; display: flex; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.65; text-align: center; ${d.bg ? 'margin-top: 150px' : ''}`">
+<div class="txt" :style="`position: relative; display: flex; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.65; text-align: center; ${d.bg ? 'margin-top: 150px' : ''}`">
 <p :class="gate('ink1')" style="margin: 0">{{d.p1}}</p>
 <p :class="gate('ink2')" style="margin: 0">{{d.p2}}</p>
 </div>
 <template v-if="d.prices">
-<div :class="gate('ink3')" style="position: relative; display: flex; flex-direction: column; border-top: 1px solid #C9C7BE">
+<div class="prices" :class="gate('ink3')" style="position: relative; display: flex; flex-direction: column; border-top: 1px solid #C9C7BE">
 <template v-for="(pr, _k) in d.prices" :key="_k">
 <div style="padding: 16px 2px; border-bottom: 1px solid #C9C7BE; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
 <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 15px; font-weight: 700">{{pr.label}}</span><span style="font-size: 13px; line-height: 1.45; color: #4F524A">{{pr.note}}</span></div>
-<span style="font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 22px; white-space: nowrap; font-variant-numeric: tabular-nums">{{pr.value}}</span>
+<span class="val" style="font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 22px; white-space: nowrap; font-variant-numeric: tabular-nums">{{pr.value}}</span>
 </div>
 </template>
 <p style="margin: 10px 0 0; font-size: 12px; line-height: 1.5; color: #4F524A">{{d.priceNote}}</p>
@@ -321,7 +408,7 @@ a{color:#363932}a:hover{color:#1f211c}
 </template>
 
 <template v-if="isInstagram">
-<div class="page" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #363932; color: #F2F1EC; box-sizing: border-box; padding: 76px 28px 90px; display: flex; flex-direction: column; gap: 20px">
+<div class="page narrow" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #363932; color: #F2F1EC; box-sizing: border-box; padding: 76px 28px 90px; display: flex; flex-direction: column; gap: 20px">
 <button type="button" @click="goBack" style="font: inherit; font-size: 14px; font-weight: 600; color: inherit; background: none; border: none; padding: 10px 0; min-height: 44px; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: 8px">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
 <span>{{backLabel}}</span>
@@ -339,7 +426,7 @@ a{color:#363932}a:hover{color:#1f211c}
 </template>
 
 <template v-if="isContacto">
-<div class="page" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; box-sizing: border-box; padding: 76px 28px 90px; display: flex; flex-direction: column; gap: 18px">
+<div class="page narrow" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; box-sizing: border-box; padding: 76px 28px 90px; display: flex; flex-direction: column; gap: 18px">
 <button type="button" @click="goBack" style="font: inherit; font-size: 14px; font-weight: 600; color: inherit; background: none; border: none; padding: 10px 0; min-height: 44px; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: 8px">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
 <span>{{backLabel}}</span>
@@ -378,7 +465,8 @@ a{color:#363932}a:hover{color:#1f211c}
 <button type="button" @click="goHome" aria-label="Volver al inicio" style="width: 48px; height: 48px; border-radius: 50%; background: #363932; border: none; padding: 0; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: center">
 <img src="img/logo-va.png" alt="" style="height: 22px; width: auto; display: block">
 </button>
-<button type="button" @click="toggleMenu" aria-label="Abrir menú" style="width: 48px; height: 48px; border-radius: 50%; background: #363932; border: none; padding: 0; margin: 0; cursor: pointer; color: #F2F1EC; display: flex; align-items: center; justify-content: center">
+<nav class="dnav" aria-label="Secciones"><template v-for="(m, _i) in deskMenu" :key="_i"><button type="button" @click="m.go"><span class="n">{{m.n}}</span>{{m.label}}</button></template></nav>
+<button type="button" class="hamb" @click="toggleMenu" aria-label="Abrir menú" style="width: 48px; height: 48px; border-radius: 50%; background: #363932; border: none; padding: 0; margin: 0; cursor: pointer; color: #F2F1EC; display: flex; align-items: center; justify-content: center">
 <template v-if="menuOpen">
 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
 </template>
@@ -395,7 +483,7 @@ a{color:#363932}a:hover{color:#1f211c}
 </a>
 </template>
 <template v-if="showFab">
-<a :href="fabWa" class="fab" aria-label="Escribinos por WhatsApp" style="position: absolute; left: 18px; bottom: 18px; z-index: 6; width: 52px; height: 52px; border-radius: 50%; background: #1DA851; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0,0,0,.28); text-decoration: none">
+<a :href="fabWa" class="fab fabw" aria-label="Escribinos por WhatsApp" style="position: absolute; left: 18px; bottom: 18px; z-index: 6; width: 52px; height: 52px; border-radius: 50%; background: #1DA851; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0,0,0,.28); text-decoration: none">
 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.4-4.3A8.5 8.5 0 1 1 20.5 11.7z"></path><path d="M9.2 8.3c.2-.4.5-.5.8-.5h.5l.9 2.1-.7.9c.5 1 1.3 1.8 2.3 2.3l.9-.7 2.1.9v.5c0 .3-.1.6-.5.8-.6.4-1.5.5-2.3.2-2.1-.8-3.7-2.4-4.5-4.5-.3-.8-.2-1.7.5-2z"></path></svg>
 </a>
 </template>
@@ -410,8 +498,8 @@ a{color:#363932}a:hover{color:#1f211c}
 
 <template v-if="showSplash">
 <button type="button" @click="enter" aria-label="Entrar al sitio" :style="`position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; background: ${splashBg}; border: none; padding: 0; margin: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px; transition: background-color 1.8s ease 0.6s`">
-<video id="va-v1" src="video/intro-escritura.mp4" muted autoplay playsinline preload="auto" aria-hidden="true" :style="`position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; opacity: ${leaving ? 0 : 1}`"></video>
-<video id="va-v2" src="video/intro-humo.mp4" muted playsinline preload="auto" aria-hidden="true" :class="leaving ? 'vfade' : ''" :style="`position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; opacity: ${leaving ? 1 : 0}`"></video>
+<video class="splv" id="va-v1" :src="isDesk ? 'video/intro-escritura-h.mp4' : 'video/intro-escritura.mp4'" muted autoplay playsinline preload="auto" aria-hidden="true" :style="`position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; opacity: ${leaving ? 0 : 1}`"></video>
+<video class="splv" id="va-v2" :src="isDesk ? 'video/intro-humo-h.mp4' : 'video/intro-humo.mp4'" muted playsinline preload="auto" aria-hidden="true" :class="leaving ? 'vfade' : ''" :style="`position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; opacity: ${leaving ? 1 : 0}`"></video>
 <span :class="hintClass" style="position: absolute; bottom: 48px; left: 0; right: 0; text-align: center; color: #F2F1EC; font-family: 'Nunito Sans', sans-serif; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase">Tocá para entrar</span>
 </button>
 </template>
@@ -437,13 +525,13 @@ function prepEstudio(cb) {
       var el = document.getElementById('va-estT'); if (!el) return;
       var sec = el.closest('section'); var h2 = el.firstElementChild;
       var avail = sec.clientWidth - 56; var w = h2.offsetWidth, hh = h2.offsetHeight;
-      var sc = Math.max(1, avail / w);
+      var sc = Math.max(1, avail / w); if (window.innerWidth >= 1000) { avail = sec.clientWidth * 0.62; sc = Math.min(1.7, Math.max(1, avail / w)); }
       var top = el.offsetTop; var target = (sec.clientHeight - hh * sc) / 2;
       cb(+sc.toFixed(3), Math.max(0, Math.round(target - top)));
     } catch (e) {}
   }, 30);
 }
-window.addEventListener('resize', fitAll);
+window.addEventListener('resize', function () { __refresh(); fitAll(); });
 try { document.fonts.ready.then(fitAll); } catch (e) {}
 class DCLogic {
   constructor() { this.props = {}; this.state = null; }
@@ -622,7 +710,10 @@ class Component extends DCLogic {
     var backLabel = bm[0];
     var goBack = bm[1];
 
+    var isDesk = false; try { isDesk = window.innerWidth >= 1000; } catch (e) {}
     return {
+      isDesk: isDesk,
+      deskCls: isDesk ? 'desk' : '',
       instagram: this.props.instagram ?? 'https://www.instagram.com/vignale.arq/',
       handle: this.props.handle ?? '@vignale.arq',
       waEstudio: wa(''),
@@ -658,13 +749,13 @@ class Component extends DCLogic {
       isContacto: view === 'contacto',
       d: Object.assign({}, d, { titleHtml: fxTitle(d.title) }),
       services: SERVICIOS.map(function (s, i) {
-        return { n: s.n, name: s.name, desc: s.desc, delay: (0.15 + i * 0.1).toFixed(2) + 's', open: s.sub ? go(s.sub) : go('servicio', { sel: s.id }) };
+        return { n: s.n, name: s.name, desc: s.desc, img: (s.reveal && !/\.mp4$/.test(s.reveal)) ? s.reveal : '', delay: (0.15 + i * 0.1).toFixed(2) + 's', open: s.sub ? go(s.sub) : go('servicio', { sel: s.id }) };
       }),
       manos: MANO.map(function (r, i) {
-        return { n: r.n, name: r.name, desc: r.desc, delay: (0.15 + i * 0.1).toFixed(2) + 's', open: go('manoitem', { sel: r.id }) };
+        return { n: r.n, name: r.name, desc: r.desc, img: r.reveal || '', delay: (0.15 + i * 0.1).toFixed(2) + 's', open: go('manoitem', { sel: r.id }) };
       }),
       reformas: REFORMAS.map(function (r, i) {
-        return { n: r.n, name: r.name, desc: r.desc, delay: (0.15 + i * 0.1).toFixed(2) + 's', open: go('reforma', { sel: r.id }) };
+        return { n: r.n, name: r.name, desc: r.desc, img: r.reveal || '', delay: (0.15 + i * 0.1).toFixed(2) + 's', open: go('reforma', { sel: r.id }) };
       }),
       menu: [
         { label: 'Inicio', go: function () { self.setState({ view: 'home', menuOpen: false, atTop: true }); self.scrollHome(0); } },
@@ -673,6 +764,7 @@ class Component extends DCLogic {
         { label: 'Instagram', go: go('instagram') },
         { label: 'Contacto', go: go('contacto') }
       ].map(function (m, i) { return Object.assign(m, { n: '0' + (i + 1), delay: (0.05 + i * 0.06).toFixed(2) + 's' }); }),
+      deskMenu: [['Estudio', function () { self.setState({ view: 'home', menuOpen: false, estudioSeen: true, atTop: false }); self.scrollHome(-1); }], ['Servicios', go('servicios')], ['Instagram', go('instagram')], ['Contacto', go('contacto')]].map(function (x, i) { return { label: x[0], go: x[1], n: '0' + (i + 1) }; }),
       menuOpen: menuOpen,
       menuClosed: !menuOpen,
       showSplash: phase !== 'site',
@@ -744,7 +836,5 @@ class Component extends DCLogic {
   app.mount('#app');
 })();
 </script>
-
-</body></html>
 </body>
 </html>
