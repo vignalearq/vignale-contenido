@@ -55,7 +55,7 @@ a{color:#363932}a:hover{color:#1f211c}
 .ghostA{animation:ghostA 3s ease-out .15s both;transform-origin:50% 100%;will-change:transform,filter,opacity}
 .ghostB{animation:ghostB 3.1s ease-out .4s both;transform-origin:50% 100%;will-change:transform,filter,opacity}
 @keyframes vfade{0%,78%{opacity:1}100%{opacity:0}}
-.vfade{animation:vfade 1.1s linear both}
+.vfade{animation:vfade .7s linear both}
 @keyframes bgIn{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
 .bgIn{animation:bgIn 1.6s ease-out both}
 @keyframes pillIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -634,10 +634,14 @@ class Component extends DCLogic {
         var v1 = document.getElementById('va-v1');
         if (!v1) return;
         var showEnd = function () { try { v1.currentTime = Math.max(0, (v1.duration || 5.8) - 0.05); } catch (e) {} };
+        v1.playbackRate = 3.2;
         var pr = v1.play();
         if (pr && pr.catch) pr.catch(function () { if (v1.readyState >= 1) showEnd(); else v1.addEventListener('loadedmetadata', showEnd, { once: true }); });
       } catch (e) {}
-    }, 60));
+    }, 30));
+    // sin click: el logo se dibuja rápido y la web entra sola
+    var me = this;
+    this.timers.push(setTimeout(function () { try { me.renderVals().enter(); } catch (e) {} }, 1450));
   }
   runSmoke() {
     var start = null, dur = 3200;
@@ -775,7 +779,7 @@ class Component extends DCLogic {
       splashBg: leaving ? 'rgba(53,56,49,0)' : '#353831',
       wordIn: !!st.wordIn,
       letters: LETTER_ITEMS,
-      hintClass: (st.wordIn && !leaving) ? 'hint-show' : 'hint-hide',
+      hintClass: 'hint-hide',
       heroP: heroIn ? 'fade' : 'pre',
       heroA: heroIn ? 'rise1' : 'pre',
       heroB: heroIn ? 'rise2' : 'pre',
@@ -810,9 +814,11 @@ class Component extends DCLogic {
         if (phase !== 'splash') return;
         self.clearTimers();
         self.setState({ phase: 'leaving', wordIn: true });
-        try { var v2 = document.getElementById('va-v2'); if (v2) { v2.currentTime = 0; var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}); } } catch (e) {}
-        self.timers.push(setTimeout(function () { self.setState({ heroIn: true }); }, 700));
-        self.timers.push(setTimeout(function () { self.setState({ phase: 'site' }); }, 1100));
+        try { var v2 = document.getElementById('va-v2'); if (v2) { v2.currentTime = 0; v2.playbackRate = 2; var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}); } } catch (e) {}
+        self.timers.push(setTimeout(function () { self.setState({ heroIn: true }); }, 380));
+        self.timers.push(setTimeout(function () { self.setState({ phase: 'site' }); }, 650));
+        // y pasa solo a "El estudio" (todo en ~3 s desde que abre)
+        self.timers.push(setTimeout(function () { var c = self.state || {}; if (c.view === 'home' && c.atTop !== false && !c.menuOpen) { self.setState({ estudioSeen: true, atTop: false }); self.scrollHome(-1); } }, 1150));
       },
       goHome: function () { self.startIntro(); },
       toggleMenu: function () { self.setState({ menuOpen: !menuOpen }); }
