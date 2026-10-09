@@ -622,7 +622,31 @@ var LETTERS = [[0,24.4,0.0,"ltr"],[24.83,9.31,0.3,"ltr"],[35.57,23.26,0.6,"ltr"]
 var LETTER_ITEMS = LETTERS.map(function (l) { return { left: l[0] + 'px', width: l[1] + 'px', pos: '-' + l[0] + 'px 0', delay: l[2] + 's', cls: l[3] }; });
 
 class Component extends DCLogic {
-  componentDidMount() { this.startIntro(); }
+  componentDidMount() {
+    var me = this;
+    try { window.addEventListener('hashchange', function () { me.deepLink(); }); } catch (e) {}
+    if (!this.deepLink()) this.startIntro();
+  }
+  // enlaces directos desde Instagram: vignalearquitectura.com.ar/#bano, /#ceramicos, /#renders...
+  deepLink() {
+    var h = ''; try { h = decodeURIComponent((location.hash || '').replace(/^#\/?/, '')).toLowerCase().trim(); } catch (e) {}
+    if (!h) return false;
+    var alias = { 'baño': 'bano', banos: 'bano', 'baños': 'bano', ceramicos: 'albanileria', 'cerámicos': 'albanileria', pisos: 'albanileria', revestimientos: 'albanileria', azulejos: 'albanileria', 'albañileria': 'albanileria', 'albañilería': 'albanileria', parrillas: 'albanileria', veredas: 'albanileria',
+      gas: 'sanitarias', camuzzi: 'sanitarias', agua: 'sanitarias', instalaciones: 'sanitarias', rejas: 'herreria', 'herrería': 'herreria', pergolas: 'herreria', muebles: 'carpinteria', 'carpintería': 'carpinteria', vanitory: 'carpinteria',
+      depto: 'departamento', obra: 'ejecucion', construccion: 'ejecucion', 'trámites': 'tramites', planos: 'tramites', render: 'renders', 'mano-de-obra': 'mano', reforma: 'reformas' };
+    var id = alias[h] || h;
+    var st = null;
+    if (SERVICIOS.some(function (x) { return x.id === id && !x.sub; })) st = { view: 'servicio', sel: id };
+    else if (id === 'reformas' || id === 'mano' || id === 'servicios' || id === 'contacto' || id === 'instagram' || id === 'proyectos') st = { view: id, sel: null };
+    else if (MANO.some(function (x) { return x.id === id; })) st = { view: 'manoitem', sel: id };
+    else if (REFORMAS.some(function (x) { return x.id === id; })) st = { view: 'reforma', sel: id };
+    else if (id === 'estudio') st = { view: 'home', sel: null, estudioSeen: true, atTop: false };
+    if (!st) return false;
+    this.clearTimers(); this.entering = false;
+    this.setState(Object.assign({ phase: 'site', wordIn: true, heroIn: true, menuOpen: false, atTop: true, estudioSeen: false }, st));
+    if (id === 'estudio') this.scrollHome(-1);
+    return true;
+  }
   componentWillUnmount() { this.clearTimers(); }
   clearTimers() { (this.timers || []).forEach(function (t) { clearTimeout(t); }); this.timers = []; }
   startIntro() {
