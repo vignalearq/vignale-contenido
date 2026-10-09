@@ -175,6 +175,13 @@ a{color:#363932}a:hover{color:#1f211c}
 .desk .page.lst .head p:last-child{font-size:20px!important;max-width:760px}
 .desk .page.lst .grid>button{min-height:300px;padding:34px 34px 36px!important}
 .desk .page.lst .grid>button>span:nth-of-type(1){font-size:44px!important}
+.desk .sico svg{width:44px;height:44px}
+.desk .igrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+.desk .igc span[style*="font-size: 12px"]{font-size:15px!important}
+.desk .igc span[style*="font-size: 13px"]{font-size:16px!important}
+.igc .igimg img{transition:transform .5s ease}.igc:hover .igimg img{transform:scale(1.04)}
+.desk .refbg>div{opacity:.55!important}
+.desk .refbg{left:auto!important;width:50%;height:100%!important;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%)!important;mask-image:linear-gradient(90deg,transparent,#000 40%)!important}
 .desk .page.lst .grid>button>span:nth-of-type(2)>span:first-child{font-size:25px!important}
 .desk .page.lst .grid>button>span:nth-of-type(2)>span:last-child{font-size:18px!important;line-height:1.55!important}
 .desk .page.detail{padding:120px 6vw 70px calc(50% + 4vw)!important;gap:28px!important}
@@ -250,13 +257,13 @@ a{color:#363932}a:hover{color:#1f211c}
 <div class="head" style="display: flex; flex-direction: column; gap: 10px">
 <p class="slide" style="margin: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #4F524A">Servicios</p>
 <h2 class="tt rv wrap auto"><span class="l"><span>Todo lo que <span class="th">necesita</span> tu obra.</span></span></h2>
-<p class="slide" style="margin: 0; font-size: 15px; line-height: 1.55">Elegí lo que más se parezca a lo que necesitás. Si no estás seguro, escribinos por WhatsApp y te orientamos.</p>
+<p class="slide" style="margin: 0; font-size: 15px; line-height: 1.55">Cada proyecto es diferente: por eso ofrecemos servicios adaptados a lo que necesitás. Si no estás seguro, escribinos por WhatsApp y te orientamos.</p>
 </div>
 <div class="grid" style="display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
 <template v-for="(s, _i) in services" :key="_i">
 <button type="button" @click="s.open" class="row" :style="`animation-delay: ${s.delay}; font: inherit; color: #363932; background: #F2F1EC; border: none; padding: 18px 16px 18px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; text-align: left`">
 <template v-if="s.img"><img class="hov" :src="s.img" alt=""></template>
-<span style="font-family: 'Italiana', serif; font-size: 26px; color: #4F524A; align-self: flex-start">{{s.n}}</span>
+<span class="sico" style="color: #4F524A; align-self: flex-start; display: flex; padding-top: 2px" v-html="s.icon"></span>
 <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px">
 <span style="font-size: 17px; font-weight: 700">{{s.name}}</span>
 <span style="font-size: 14px; line-height: 1.5">{{s.desc}}</span>
@@ -270,16 +277,17 @@ a{color:#363932}a:hover{color:#1f211c}
 
 <template v-if="isReformas">
 <div class="page lst" @touchstart="ts" @touchend="te" @mousedown="ts" @mouseup="te" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: #E6E4DC; box-sizing: border-box; padding: 76px 24px 90px; display: flex; flex-direction: column; gap: 18px">
-<button type="button" @click="goBack" style="font: inherit; font-size: 14px; font-weight: 600; color: inherit; background: none; border: none; padding: 10px 0; min-height: 44px; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: 8px">
+<div class="refbg bgIn" aria-hidden="true" style="position: absolute; top: 0; left: 0; right: 0; height: 520px; pointer-events: none; -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent)"><div style="position: absolute; inset: 0; background: url(img/reformas-bg.webp) center 30% / cover no-repeat; opacity: 0.2"></div></div>
+<button type="button" @click="goBack" style="position: relative; font: inherit; font-size: 14px; font-weight: 600; color: inherit; background: none; border: none; padding: 10px 0; min-height: 44px; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: 8px">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
 <span>{{backLabel}}</span>
 </button>
-<div class="head" style="display: flex; flex-direction: column; gap: 10px">
+<div class="head" style="position: relative; display: flex; flex-direction: column; gap: 10px">
 <p class="slide" style="margin: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #4F524A">05 · Reformas</p>
 <h2 class="tt rv wrap auto"><span class="l"><span><span class="th">¿Qué querés</span> reformar?</span></span></h2>
 <p class="slide" style="margin: 0; font-size: 15px; line-height: 1.55">Contanos qué querés cambiar y armamos un plan por etapas, con costos claros desde el principio.</p>
 </div>
-<div class="grid g2" style="display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
+<div class="grid g2" style="position: relative; display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
 <template v-for="(r, _i) in reformas" :key="_i">
 <button type="button" @click="r.open" class="row" :style="`animation-delay: ${r.delay}; font: inherit; color: #363932; background: #F2F1EC; border: none; padding: 18px 16px 18px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; text-align: left`">
 <template v-if="r.img"><img class="hov" :src="r.img" alt=""></template>
@@ -304,7 +312,7 @@ a{color:#363932}a:hover{color:#1f211c}
 <div class="head" style="display: flex; flex-direction: column; gap: 10px">
 <p class="slide" style="margin: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #4F524A">06 · Mano de obra</p>
 <h2 class="tt rv wrap auto"><span class="l"><span><span class="th">¿Qué trabajo</span> necesitás?</span></span></h2>
-<p class="slide" style="margin: 0; font-size: 15px; line-height: 1.55">Trabajos puntuales en tu casa, sin necesidad de un proyecto completo.</p>
+<p class="slide" style="margin: 0; font-size: 15px; line-height: 1.55">Trabajos puntuales en tu espacio, sin necesidad de un proyecto completo.</p>
 </div>
 <div class="grid g2" style="display: flex; flex-direction: column; gap: 1px; background: #C9C7BE; border: 1px solid #C9C7BE">
 <template v-for="(r, _i) in manos" :key="_i">
@@ -344,8 +352,8 @@ a{color:#363932}a:hover{color:#1f211c}
 <h2 class="tt rv wrap auto" :class="d.reveal ? 'late' : ''" :key="d.title"><span class="l"><span v-html="d.titleHtml"></span></span></h2>
 </div>
 <div class="txt" :style="`position: relative; display: flex; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.65; text-align: center; ${d.bg ? 'margin-top: 150px' : ''}`">
-<p :class="gate('ink1')" style="margin: 0">{{d.p1}}</p>
-<p :class="gate('ink2')" style="margin: 0">{{d.p2}}</p>
+<p :class="gate('ink1')" style="margin: 0" v-html="md(d.p1)"></p>
+<p :class="gate('ink2')" style="margin: 0" v-html="md(d.p2)"></p>
 </div>
 <template v-if="d.prices">
 <div class="prices" :class="gate('ink3')" style="position: relative; display: flex; flex-direction: column; border-top: 1px solid #C9C7BE">
@@ -359,9 +367,10 @@ a{color:#363932}a:hover{color:#1f211c}
 </div>
 </template>
 <template v-if="d.items">
+<template v-if="d.itemsTitle"><h3 :class="gate('ink3')" style="position: relative; margin: 6px 0 -6px; font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase">{{d.itemsTitle}}</h3></template>
 <ul :class="gate('ink3')" style="position: relative; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid #C9C7BE">
 <template v-for="(it, _j) in d.items" :key="_j">
-<li style="padding: 13px 2px; border-bottom: 1px solid #C9C7BE; display: flex; gap: 14px; font-size: 15px; line-height: 1.45"><span style="font-family: 'Italiana', serif; font-size: 20px; color: #4F524A; min-width: 22px">{{it.n}}</span><span>{{it.t}}</span></li>
+<li style="padding: 13px 2px; border-bottom: 1px solid #C9C7BE; display: flex; gap: 14px; font-size: 15px; line-height: 1.45"><span style="font-family: 'Italiana', serif; font-size: 20px; color: #4F524A; min-width: 22px">{{it.n}}</span><span v-html="md(it.t)"></span></li>
 </template>
 </ul>
 </template>
@@ -423,6 +432,23 @@ a{color:#363932}a:hover{color:#1f211c}
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"></circle></svg>
 <span>Seguinos {{handle}}</span>
 </a>
+<div class="igrid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<template v-for="(ig, _g) in igPosts" :key="_g">
+<a :href="ig.url" target="_blank" rel="noopener" class="igc row" :style="`animation-delay: ${ig.delay}; display: flex; flex-direction: column; gap: 8px; color: #F2F1EC; text-decoration: none`">
+<span class="igimg" style="position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; background: #2A2C26">
+<template v-if="!ig.img"><span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #474A42, #2A2C26)"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F2F1EC" stroke-width="1.2" opacity=".55" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><path d="M10 8.5v7l5.5-3.5z" fill="#F2F1EC" stroke="none"></path></svg></span></template>
+<img v-if="ig.img" :src="ig.img" alt="" loading="lazy" :style="`position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: ${ig.pos || 'center'}`">
+<span style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(31,33,28,0) 55%, rgba(31,33,28,.75))"></span>
+<span style="position: absolute; top: 8px; right: 8px; display: flex; align-items: center; gap: 5px; background: rgba(31,33,28,.6); padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; letter-spacing: .04em">
+<template v-if="ig.reel"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg></template>
+<template v-if="!ig.reel"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"></rect></svg></template>
+{{ig.tag}}</span>
+<span style="position: absolute; left: 10px; bottom: 9px; right: 10px; font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: .02em; line-height: 1.15">{{ig.title}}</span>
+</span>
+<span style="font-size: 12px; line-height: 1.4; opacity: .8">{{ig.sub}}</span>
+</a>
+</template>
+</div>
 </div>
 </template>
 
@@ -554,29 +580,40 @@ class DCLogic {
   }
 }
 
+var ICO = function (p) { return '<svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
 var SERVICIOS = [
   { id: 'proyecto', msg: 'proyecto y dirección de obra', cta: 'Me interesaría empezar un proyecto', n: '01', name: 'Proyecto y dirección de obra', reveal: 'img/proyecto-bg.webp',
-    desc: '¿Querés construir o ampliar y no sabés por dónde empezar? Diseñamos tu casa y te acompañamos hasta terminarla.', title: 'Diseñamos *tu obra antes de* construirla.',
-    p1: 'Primero charlamos qué necesitás y cuánto querés invertir. Con eso armamos el diseño, los planos y los renders, para que veas tu casa antes de poner el primer ladrillo.',
-    p2: 'Después, durante la obra, te representamos: la visitamos, coordinamos a los gremios y controlamos que se construya lo que diseñamos, en tiempo y en presupuesto.',
-    items: [{n: '01', t: 'Primera charla: qué necesitás y cuánto querés invertir'}, {n: '02', t: 'Anteproyecto: la primera idea, con renders para verla'}, {n: '03', t: 'Planos para construir y para presentar en el Municipio'}, {n: '04', t: 'Dirección de obra: controlamos la obra por vos'}] },
+    icon: ICO('<path d="M4 27V9l8-4 8 4 8-4v18l-8 4-8-4-8 4z"/><path d="M12 5v18M20 9v18"/>'),
+    desc: 'Desarrollamos proyectos adaptados a cada necesidad, acompañando su planificación y supervisando cada etapa de la obra.', title: 'Diseñamos *tu obra antes de* construirla.',
+    p1: 'Comenzamos conociendo tus **necesidades, ideas y presupuesto**. A partir de eso desarrollamos el proyecto, con **planos y renders** para que puedas visualizar el resultado antes de empezar a construir.',
+    p2: 'Durante la construcción nos encargamos de la **dirección de obra**: supervisamos los trabajos y coordinamos a los distintos equipos para que el proyecto se ejecute **según lo planificado**.',
+    itemsTitle: '¿Cómo trabajamos?',
+    items: [{n: '01', t: '**Primera reunión.** Conocemos tus ideas, necesidades y presupuesto.'}, {n: '02', t: '**Anteproyecto.** Desarrollamos la propuesta inicial y la visualizamos con renders.'}, {n: '03', t: '**Documentación técnica.** Preparamos los planos para construir y para las presentaciones municipales.'}, {n: '04', t: '**Dirección de obra.** Supervisamos los trabajos y coordinamos los equipos durante la construcción.'}] },
   { id: 'renders', msg: 'renders', cta: 'Quiero cotizar renders', n: '02', name: 'Renders', reveal: 'img/renders-bg.webp',
-    desc: '¿Querés ver cómo va a quedar antes de construir o de vender? Imágenes realistas de tu proyecto.', title: '*Tu proyecto,* antes de que exista.',
-    p1: 'Un render es una imagen realista, como una foto, de algo que todavía no está construido. Sirve para elegir materiales y colores, mostrarle el proyecto a tu familia o venderlo antes de construir.',
-    p2: 'Los hacemos a partir de tus planos o de un proyecto nuestro. Cada imagen incluye dos rondas de correcciones.',
+    icon: ICO('<path d="M16 3l11 6v14l-11 6-11-6V9z"/><path d="M5 9l11 6 11-6M16 15v14"/>'),
+    desc: 'Recreamos cada proyecto con imágenes realistas que permiten visualizar los espacios, materiales y detalles antes de construir.', title: '*Tu proyecto,* antes de que exista.',
+    p1: 'Un render es una **imagen realista** que permite ver cómo quedará un espacio antes de construirlo. Te ayuda a **elegir materiales, colores y terminaciones**, compartir tus ideas o presentar un proyecto antes de que se haga realidad.',
+    p2: 'Trabajamos a partir de **tus planos o de un proyecto de nuestro estudio**. Cada imagen incluye hasta **dos rondas de correcciones** para ajustar los detalles.',
     prices: [{ label: 'Render por unidad', value: 'USD 60', note: 'Exterior o interior, en Full HD.' }, { label: 'Proyecto completo', value: 'USD 5 / m²', note: 'Modelado de toda la obra y hasta 5 imágenes. Mínimo USD 200.' }],
     priceNote: 'Valores de referencia: se confirman al ver los planos. Se pueden pagar en pesos al cambio del día.' },
   { id: 'tramites', msg: 'trámite municipal', cta: 'Quiero hacer un trámite', reveal: 'img/tramites-tomi.webp', n: '03', name: 'Trámites municipales',
-    desc: '¿Construiste sin permiso o necesitás aprobar planos? Nos ocupamos de los papeles.', title: '*Nos ocupamos de* los papeles.',
-    items: [{n: '01', t: 'Permiso para construir o ampliar'}, {n: '02', t: 'Regularizar lo que se hizo sin permiso'}, {n: '03', t: 'Planos municipales y planos conforme a obra'}, {n: '04', t: 'Final de obra, el cierre del trámite'}, {n: '05', t: 'Visado en el Colegio de Arquitectos'}],
-    p1: 'Para construir, ampliar o vender una casa, el Municipio pide planos aprobados. Si tu casa tiene partes hechas sin permiso, también se pueden regularizar.',
-    p2: 'Vos no tenés que hacer filas ni entender formularios: te avisamos en cada paso cómo avanza el trámite.' },
+    icon: ICO('<path d="M8 3h11l6 6v20H8z"/><path d="M19 3v6h6M12 15h9M12 19h9"/><circle cx="21" cy="25" r="2.5"/>'),
+    desc: 'Gestionamos la documentación técnica y los trámites municipales para la presentación, aprobación y regularización de planos.', title: '*Nos ocupamos de* los papeles.',
+    itemsTitle: '¿Qué trámites realizamos?',
+    items: [{n: '01', t: 'Permisos para construir o ampliar'}, {n: '02', t: 'Regularización de construcciones existentes'}, {n: '03', t: 'Planos municipales y conforme a obra'}, {n: '04', t: 'Final de obra, el cierre del trámite'}, {n: '05', t: 'Visado en el Colegio de Arquitectos'}],
+    p1: 'Para construir, ampliar o modificar una propiedad hacen falta la **documentación y las aprobaciones** correspondientes. También gestionamos la **regularización de construcciones existentes** que todavía no tienen los planos aprobados.',
+    p2: 'Nos encargamos de los trámites y **te mantenemos informado** sobre el avance de cada gestión, para que no tengas que preocuparte.' },
   { id: 'ejecucion', msg: 'ejecución de obra', cta: 'Quiero construir', n: '04', name: 'Ejecución de obras', reveal: 'img/ejecucion-bg.webp', revealMode: 'single',
-    desc: '¿Ya tenés el proyecto y necesitás quién lo construya? Lo hacemos con nuestro equipo.', title: 'Construimos *con nuestro* equipo.',
-    p1: 'Construimos tu obra de principio a fin: desde la base hasta las terminaciones, con ladrillo o con construcción en seco, que es más rápida.',
-    p2: 'Un solo equipo y un solo responsable, desde el primer día hasta la entrega de llaves.' },
-  { id: 'reformas', n: '05', name: 'Reformas', desc: '¿Querés renovar tu casa, tu cocina o tu baño? Lo planificamos por etapas.', sub: 'reformas' },
-  { id: 'mano', n: '06', name: 'Mano de obra', desc: '¿Necesitás un trabajo puntual? Pisos, parrilla, gas, rejas o muebles.', sub: 'mano' }
+    icon: ICO('<path d="M4 27h24M6 27V17h8v10M14 27V11h12v16"/><path d="M6 21h8M14 15h12M14 20h12M20 11v16"/>'),
+    desc: 'Llevamos adelante la construcción de proyectos, coordinando los trabajos y los recursos necesarios para su ejecución.', title: 'Construimos *y coordinamos* tu obra.',
+    p1: 'Llevamos adelante la construcción de tu proyecto, **desde las primeras etapas hasta las terminaciones**, con sistemas **tradicionales o de construcción en seco**.',
+    p2: 'Contamos con un **equipo de trabajo propio** y coordinamos las tareas y los recursos necesarios, **supervisando cada etapa** de la obra hasta su finalización.' },
+  { id: 'reformas', n: '05', name: 'Reformas', sub: 'reformas', img: 'img/reformas-bg.webp',
+    icon: ICO('<rect x="5" y="4" width="18" height="7" rx="1.5"/><path d="M23 7.5h3v7H15v4"/><rect x="13" y="18.5" width="4" height="10" rx="1"/>'),
+    desc: 'Transformamos y renovamos espacios existentes con una planificación por etapas, definiendo los trabajos y tiempos de cada proyecto.' },
+  { id: 'mano', n: '06', name: 'Mano de obra', sub: 'mano',
+    icon: ICO('<path d="M18 5l9 9-3 3-9-9z"/><path d="M15 8l-2 2 9 9 2-2M17 14L5 26l1.5 1.5L18.5 15.5"/>'),
+    desc: 'Un equipo para trabajos puntuales de construcción según lo que necesite cada proyecto: pisos, parrillas, gas, rejas o muebles.' }
 ];
 var MANO = [
   { id: 'albanileria', msg: 'albañilería', cta: 'Quiero un trabajo de albañilería', n: 'A', name: 'Albañilería', desc: '¿Necesitás cambiar los pisos de tu departamento, hacer una parrilla o una vereda?', title: '*Obras chicas,* bien hechas.',
@@ -590,25 +627,25 @@ var MANO = [
   { id: 'herreria', msg: 'herrería', cta: 'Quiero un trabajo de herrería', n: 'C', name: 'Herrería', desc: '¿Querés una pérgola, rejas o renovar el frente de tu casa?', title: 'Herrería *a medida.*',
     items: [{n: '01', t: 'Pérgolas'}, {n: '02', t: 'Frentes de parrillas'}, {n: '03', t: 'Rejas'}, {n: '04', t: 'Frentes de viviendas'}],
     p1: 'Fabricamos y colocamos pérgolas, frentes de parrilla, rejas y frentes de viviendas.',
-    p2: 'Cada pieza se hace a medida, pensada para que acompañe la arquitectura de tu casa.' },
-  { id: 'carpinteria', msg: 'carpintería', cta: 'Quiero un mueble a medida', n: 'D', name: 'Carpintería', desc: '¿Necesitás cambiar los bajo mesadas, las alacenas o el vanitory del baño?', title: '*Muebles a la medida de* tu casa.',
+    p2: 'Cada pieza se hace a medida, pensada para acompañar la arquitectura de cada espacio.' },
+  { id: 'carpinteria', msg: 'carpintería', cta: 'Quiero un mueble a medida', n: 'D', name: 'Carpintería', desc: '¿Necesitás cambiar los bajo mesadas, las alacenas o el vanitory del baño?', title: '*Muebles a la medida de* cada espacio.',
     items: [{n: '01', t: 'Bajo mesadas'}, {n: '02', t: 'Alacenas'}, {n: '03', t: 'Vanitorys'}, {n: '04', t: 'Muebles a medida'}, {n: '05', t: 'Otros trabajos a pedido'}],
     p1: 'Hacemos bajo mesadas, alacenas, vanitorys y muebles a medida para cualquier ambiente.',
-    p2: 'Medimos en obra para que cada mueble entre justo en su lugar.' }
+    p2: 'Medimos en obra para que cada mueble **encaje perfectamente** en su lugar.' }
 ];
 var REFORMAS = [
-  { id: 'integral', msg: 'reforma integral', cta: 'Quiero una reforma integral',  n: 'A', name: 'Reforma integral', desc: '¿Tu casa necesita una renovación completa?', title: '*Tu casa,* como nueva.',
-    p1: 'Renovamos la vivienda completa: distribución, instalaciones, aberturas y terminaciones.',
-    p2: 'Planificamos por etapas, para que sepas cuánto cuesta y cuánto tarda cada una antes de empezar.' },
+  { id: 'integral', msg: 'reforma integral', cta: 'Quiero una reforma integral',  n: 'A', name: 'Reforma integral', desc: '¿Tu propiedad necesita una renovación completa?', title: '*Tu propiedad,* como nueva.',
+    p1: 'Transformamos y renovamos propiedades **de manera integral**, desde la distribución de los espacios hasta las instalaciones, aberturas y terminaciones.',
+    p2: 'Planificamos **por etapas**, con un esquema de trabajo, **costos y tiempos estimados**, para que sepas cómo se va a desarrollar el proyecto antes de empezar.' },
   { id: 'departamento', msg: 'reforma de departamento', cta: 'Quiero reformar mi depto',  n: 'B', name: 'Reforma de departamento', desc: '¿Querés reformar tu depto sin problemas con el consorcio?', title: 'Reformas *en altura, sin complicaciones.*',
     p1: 'Trabajamos dentro de las reglas del consorcio: horarios, accesos y permisos.',
     p2: 'Redistribuimos espacios y renovamos instalaciones y terminaciones para aprovechar cada metro.' },
   { id: 'cocina', msg: 'reforma de cocina', cta: 'Quiero reformar mi cocina',  n: 'C', name: 'Reforma de cocina', desc: '¿Tu cocina quedó vieja o te queda chica?', title: '*La* cocina *que querés usar* todos los días.',
     p1: 'Rediseñamos la distribución, el mobiliario, las mesadas y las instalaciones de gas, agua y electricidad.',
-    p2: 'Con renders previos, elegís materiales y terminaciones antes de empezar la obra.' },
+    p2: 'Con **renders** podés ver el resultado y **elegir materiales y terminaciones** antes de empezar la obra.' },
   { id: 'bano', msg: 'reforma de baño', cta: 'Quiero reformar mi baño',  n: 'D', name: 'Reforma de baño', desc: '¿Tu baño tiene humedad o querés renovarlo?', title: '*Un* baño nuevo, *bien resuelto.*',
-    p1: 'Renovamos revestimientos, sanitarios, grifería e instalaciones.',
-    p2: 'Cuidamos la impermeabilización y las pendientes para que el baño dure muchos años sin problemas.' }
+    p1: 'Renovamos revestimientos, sanitarios, grifería e instalaciones, combinando **funcionalidad y diseño**.',
+    p2: 'Prestamos especial atención a la **impermeabilización y las pendientes**, para lograr un resultado duradero y evitar problemas a futuro.' }
 ];
 var fxTitle = function (t) { return String(t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\*([^*]+)\*/g, '<span class="th">$1</span>'); };
 function revealOf(st) {
@@ -714,7 +751,7 @@ class Component extends DCLogic {
     var d = { back: go('servicios'), backLabel: 'Servicios', backButton: 'Ver servicios', eyebrow: '', title: '', p1: '', p2: '', items: null, bg: null, cta: '', wa: base };
     if (view === 'servicio') {
       var s = SERVICIOS.find(function (x) { return x.id === st.sel; }) || SERVICIOS[0];
-      d = { back: go('servicios'), backLabel: 'Servicios', backButton: 'Ver servicios', eyebrow: s.n + ' · ' + s.name, reveal: s.reveal || null, revealSingle: s.revealMode === 'single', revealVideo: /\.mp4$/.test(s.reveal || ''), title: s.title, p1: s.p1, p2: s.p2, prices: s.prices || null, priceNote: s.priceNote || '', items: s.items || null, bg: s.bg || null, cta: s.cta, wa: waRaw('Hola Francisco! Quiero un servicio de ' + s.msg + '.') };
+      d = { back: go('servicios'), backLabel: 'Servicios', backButton: 'Ver servicios', eyebrow: s.n + ' · ' + s.name, reveal: s.reveal || null, revealSingle: s.revealMode === 'single', revealVideo: /\.mp4$/.test(s.reveal || ''), title: s.title, p1: s.p1, p2: s.p2, prices: s.prices || null, priceNote: s.priceNote || '', items: s.items || null, itemsTitle: s.itemsTitle || '', bg: s.bg || null, cta: s.cta, wa: waRaw('Hola Francisco! Quiero un servicio de ' + s.msg + '.') };
     } else if (view === 'manoitem') {
       var mo = MANO.find(function (x) { return x.id === st.sel; }) || MANO[0];
       d = { back: go('mano'), backLabel: 'Mano de obra', backButton: 'Ver mano de obra', eyebrow: '06 · ' + mo.name, reveal: mo.reveal || null, revealVideo: /\.mp4$/.test(mo.reveal || ''), title: mo.title, p1: mo.p1, p2: mo.p2, items: mo.items || null, bg: mo.bg || null, cta: mo.cta, wa: waRaw('Hola Francisco! Quiero un servicio de ' + mo.msg + '.') };
@@ -768,6 +805,15 @@ class Component extends DCLogic {
         self.tx = null;
         if (dx > 70 && Math.abs(dy) < 60) goBack();
       },
+      // Tarjetas de Instagram: reemplazar img/url por cada publicación real
+      igPosts: [
+        { url: 'https://www.instagram.com/reel/DZvHOKhxK5z/', img: 'img/ig-bano.webp', title: 'Reforma de baño', sub: 'Ver el reel' },
+        { url: 'https://www.instagram.com/reel/DXrY3vIDlD2/', img: 'img/ig-depto-1.webp', title: 'Reforma de departamento', sub: 'Ver el reel' },
+        { url: 'https://www.instagram.com/reel/DW7K2yWxy3d/', img: 'img/ig-acceso.webp', title: 'Acceso vehicular', sub: 'Ver el reel' },
+        { url: 'https://www.instagram.com/reel/DSvDEyPkbL6/', img: 'img/ig-pergola-fuego.webp', title: 'Pérgola y living exterior', sub: 'Ver el reel' },
+        { url: 'https://www.instagram.com/reel/DOD64tyDnT1/', img: 'img/ig-depto-2.webp', title: 'Reforma de departamento', sub: 'Ver el reel' },
+        { url: 'https://www.instagram.com/reel/C-qllLiS0Sb/', img: 'img/ig-depto-3.webp', title: 'Reforma de departamento', sub: 'Ver el reel' }
+      ].map(function (x, i) { return Object.assign({ tag: 'Reel', reel: true, delay: (0.05 + i * 0.05).toFixed(2) + 's' }, x); }),
       posts: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (n) { return { label: '[Post ' + n + ']' }; }),
       isHome: view === 'home',
       isServicios: view === 'servicios',
@@ -779,7 +825,7 @@ class Component extends DCLogic {
       isContacto: view === 'contacto',
       d: Object.assign({}, d, { titleHtml: fxTitle(d.title) }),
       services: SERVICIOS.map(function (s, i) {
-        return { n: s.n, name: s.name, desc: s.desc, img: (s.reveal && !/\.mp4$/.test(s.reveal)) ? s.reveal : '', delay: (0.01 + i * 0.025).toFixed(2) + 's', open: s.sub ? go(s.sub) : go('servicio', { sel: s.id }) };
+        return { n: s.n, icon: s.icon, name: s.name, desc: s.desc, img: s.img || ((s.reveal && !/\.mp4$/.test(s.reveal)) ? s.reveal : ''), delay: (0.01 + i * 0.025).toFixed(2) + 's', open: s.sub ? go(s.sub) : go('servicio', { sel: s.id }) };
       }),
       manos: MANO.map(function (r, i) {
         return { n: r.n, name: r.name, desc: r.desc, img: r.reveal || '', delay: (0.01 + i * 0.025).toFixed(2) + 's', open: go('manoitem', { sel: r.id }) };
@@ -819,6 +865,7 @@ class Component extends DCLogic {
       heroOn: heroIn ? 'on' : '',
       projStage: st.projStage || 0,
       projTStyle: (st.projStage || 0) > 0 ? 'transform: none' : ('transform: translateY(' + (st.projY || 0) + 'px); transition: none'),
+      md: function (t) { return String(t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\*\*(.+?)\*\*/g, '<strong style="font-weight: 700">$1</strong>'); },
       gate: function (c) { return (revealOf(st) && (st.projStage || 0) < 2) ? 'pre' : c; },
       estShrink: !!st.estSmall,
       estStyle: st.estSmall ? 'transform: none' : ('transform: translate(0, ' + (st.estY || 0) + 'px) scale(' + (st.estS || 1) + ')'),
@@ -879,5 +926,6 @@ class Component extends DCLogic {
   app.mount('#app');
 })();
 </script>
+
 </body>
 </html>
