@@ -127,7 +127,7 @@ def intro(t):
     band = Image.composite(logo_band, empty.crop((0, 280, W, 500)), logo_mask.point(lambda v: int(v * la)))
     img.paste(band, (0, 280))
     out = 1 - ease((t - (T1 - 0.4)) / 0.4)
-    text_block(img, '¿NECESITÁS', ['aprobar', 'tus planos?'], 795, t, 0.45, out)
+    text_block(img, '¿NECESITÁS', ['actualizar', 'tus planos?'], 795, t, 0.45, out)
     return img.convert('RGB')
 
 def seg_foto(t):
@@ -135,7 +135,7 @@ def seg_foto(t):
     img = foto_pan(p).convert('RGBA')
     img.alpha_composite(shade)
     out = 1 - ease((t - (T2 - 0.35)) / 0.35)
-    text_block(img, 'PERMISOS DE OBRA', ['y planos.'], 1150, t, T1 + 0.2, out)
+    text_block(img, '¿TENÉS QUE PRESENTAR TU CASA', ['para un crédito?'], 1150, t, T1 + 0.2, out)
     return img.convert('RGB')
 
 def seg_clip(t):
@@ -146,7 +146,7 @@ def seg_clip(t):
         img = foto_zoom((t - T2 + XF) / (T3 - T2 + XF)).convert('RGBA')
     img.alpha_composite(shade)
     out = 1 - ease((t - (T3 - 0.35)) / 0.35)
-    text_block(img, 'REGULARIZACIONES Y', ['finales de obra.'], 1150, t, T2 + 0.15, out)
+    text_block(img, 'NOS OCUPAMOS DE', ['todo el trámite.'], 1150, t, T2 + 0.15, out)
     return img.convert('RGB')
 
 def render(t):
