@@ -191,9 +191,9 @@ def draw_intro(layer, t):
     d = ImageDraw.Draw(layer)
     lab = 'HOY EN LA OBRA'
     wl = sum(fLab.getlength(c) for c in lab) + 8 * (len(lab) - 1)
-    tracked(d, (W - wl) / 2, 400 + (1 - pl) * 25, lab, fLab, pl * out, 8)
-    rising(layer, 'Explicando', fTit, W / 2, 560, (t - 0.35) / 0.6, out)
-    rising(layer, 'la cubierta', fTit, W / 2, 712, (t - 0.52) / 0.6, out)
+    tracked(d, (W - wl) / 2, 745 + (1 - pl) * 25, lab, fLab, pl * out, 8)
+    rising(layer, 'Explicando', fTit, W / 2, 905, (t - 0.35) / 0.6, out)
+    rising(layer, 'la cubierta', fTit, W / 2, 1058, (t - 0.52) / 0.6, out)
 
 ST_IN = A(45.25); ST_OUT = T_REM
 def draw_stamp(layer, t):
@@ -263,7 +263,7 @@ def reader(path, ss, dur):
            '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-']
     return subprocess.Popen(cmd, stdout=subprocess.PIPE)
 
-SRC = {'a': 'b/a.mp4', 'b': 'b/b.mp4', 'r': 'b/rem.mov'}
+SRC = {'a': 'b/a.mp4', 'b': 'b/drone.mp4', 'r': 'b/rem.mov'}
 enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS),
                         '-i', '-', '-c:v', 'libx264', '-crf', '17', '-preset', 'medium', '-pix_fmt', 'yuv420p', 'w/video.mp4'],
                        stdin=subprocess.PIPE)
