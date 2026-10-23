@@ -24,8 +24,8 @@ def back(x):
     x = min(max(x, 0.0), 1.0); c = 1.9; return 1 + (c + 1) * (x - 1) ** 3 + c * (x - 1) ** 2
 
 # ---------------- montaje ----------------
-SEG = [('b', 0.00, 8.55), ('a', 7.00, 31.12), ('a', 32.08, 47.00), ('r', 0.0, 3.60)]
-VO_OFF = 3.25   # audio nuevo de Francisco: t_salida = t_vo + VO_OFF
+SEG = [('b', 1.40, 4.60), ('a', 0.00, 4.50), ('a', 7.10, 31.12), ('a', 32.08, 47.00), ('r', 0.0, 3.60)]
+VO_OFF = 2.63   # audio nuevo de Francisco: t_salida = t_vo + VO_OFF
 OFF = []; acc = 0
 for s in SEG:
     OFF.append(acc); acc += s[2] - s[1]
@@ -35,7 +35,7 @@ def A(t):  # tiempo del clip a -> tiempo de salida
         if src == 'a' and s - 0.05 <= t <= e + 0.05:
             return o + (t - s)
     raise ValueError(t)
-T_INTRO_END = OFF[1]; T_REM = OFF[3]
+T_INTRO_END = OFF[1]; T_REM = OFF[4]; T_ANSWER = OFF[2]
 
 # ---------------- subtítulos (texto corregido, tiempos de whisper en el clip a) ----------------
 # '*' = palabra clave en Italiana
@@ -186,16 +186,16 @@ def rising(layer, text, font, cx, baseline, p, alpha=1.0):
 
 def draw_intro(layer, t):
     if t >= T_INTRO_END: return
-    TITLE_END = 4.0
+    TITLE_END = T_INTRO_END
     if t >= TITLE_END: return
     out = 1 - ease((t - (TITLE_END - 0.35)) / 0.35)
-    pl = ease((t - 0.9) / 0.45)
+    pl = ease((t - 0.25) / 0.45)
     d = ImageDraw.Draw(layer)
     lab = 'HOY EN LA OBRA'
     wl = sum(fLab.getlength(c) for c in lab) + 8 * (len(lab) - 1)
     tracked(d, (W - wl) / 2, 745 + (1 - pl) * 25, lab, fLab, pl * out, 8)
-    rising(layer, 'Explicando', fTit, W / 2, 905, (t - 1.1) / 0.6, out)
-    rising(layer, 'la cubierta', fTit, W / 2, 1058, (t - 1.27) / 0.6, out)
+    rising(layer, 'Explicando', fTit, W / 2, 905, (t - 0.45) / 0.6, out)
+    rising(layer, 'la cubierta', fTit, W / 2, 1058, (t - 0.62) / 0.6, out)
 
 ST_IN = A(45.25); ST_OUT = T_REM
 def draw_stamp(layer, t):
@@ -330,7 +330,9 @@ def fade(x, fi_=0.012, fo=0.012):
     n1, n2 = int(fi_ * SR), int(fo * SR)
     x[:n1] *= np.linspace(0, 1, n1)[:, None]; x[-n2:] *= np.linspace(1, 0, n2)[:, None]; return x
 for (src, s, e), o in zip(SEG, OFF):
-    if src == 'a' and s < 7.2:
+    if src == 'a' and s < 1.0:
+        pass  # Julián escuchando: sin audio original (va la voz nueva + ambiente)
+    elif src == 'a' and s < 7.2:
         put(fade(load('w/a_clean.wav', 7.18, e - 7.18), 0.04), o + (7.18 - s))
     elif src == 'a':
         put(fade(load('w/a_clean.wav', s, e - s)), o)
@@ -348,7 +350,7 @@ def tick(freq=1750, gain=0.10):
     return np.stack([x, x], 1).astype(np.float32)
 vo = load('w/vo_clean.wav', max(0, -VO_OFF))
 put(fade(vo, 0.03, 0.2), max(0, VO_OFF))
-bed = load('w/bed.wav')[:int((T_INTRO_END + 0.9) * SR)] * (10 ** ((41 - 31) / 20))
+bed = load('w/bed.wav')[:int((T_ANSWER + 0.5) * SR)] * (10 ** ((41 - 31) / 20))
 put(fade(bed, 0.25, 0.6), 0.0)
 put(whoosh(0.45, 0.20), T_INTRO_END - 0.3)
 for i, (n, tn) in enumerate(CAPAS):
