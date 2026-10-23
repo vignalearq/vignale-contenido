@@ -24,8 +24,8 @@ def back(x):
     x = min(max(x, 0.0), 1.0); c = 1.9; return 1 + (c + 1) * (x - 1) ** 3 + c * (x - 1) ** 2
 
 # ---------------- montaje ----------------
-SEG = [('b', 0.00, 4.00), ('a', 6.80, 31.12), ('a', 32.08, 47.00), ('r', 0.0, 3.60)]
-VO_OFF = -0.75   # audio nuevo de Francisco: t_salida = t_vo + VO_OFF
+SEG = [('b', 0.00, 8.55), ('a', 7.00, 31.12), ('a', 32.08, 47.00), ('r', 0.0, 3.60)]
+VO_OFF = 3.25   # audio nuevo de Francisco: t_salida = t_vo + VO_OFF
 OFF = []; acc = 0
 for s in SEG:
     OFF.append(acc); acc += s[2] - s[1]
@@ -186,14 +186,16 @@ def rising(layer, text, font, cx, baseline, p, alpha=1.0):
 
 def draw_intro(layer, t):
     if t >= T_INTRO_END: return
-    out = 1 - ease((t - (T_INTRO_END - 0.25)) / 0.25)
-    pl = ease((t - 0.15) / 0.45)
+    TITLE_END = 4.0
+    if t >= TITLE_END: return
+    out = 1 - ease((t - (TITLE_END - 0.35)) / 0.35)
+    pl = ease((t - 0.9) / 0.45)
     d = ImageDraw.Draw(layer)
     lab = 'HOY EN LA OBRA'
     wl = sum(fLab.getlength(c) for c in lab) + 8 * (len(lab) - 1)
     tracked(d, (W - wl) / 2, 745 + (1 - pl) * 25, lab, fLab, pl * out, 8)
-    rising(layer, 'Explicando', fTit, W / 2, 905, (t - 0.35) / 0.6, out)
-    rising(layer, 'la cubierta', fTit, W / 2, 1058, (t - 0.52) / 0.6, out)
+    rising(layer, 'Explicando', fTit, W / 2, 905, (t - 1.1) / 0.6, out)
+    rising(layer, 'la cubierta', fTit, W / 2, 1058, (t - 1.27) / 0.6, out)
 
 ST_IN = A(45.25); ST_OUT = T_REM
 def draw_stamp(layer, t):
@@ -328,7 +330,7 @@ def fade(x, fi_=0.012, fo=0.012):
     n1, n2 = int(fi_ * SR), int(fo * SR)
     x[:n1] *= np.linspace(0, 1, n1)[:, None]; x[-n2:] *= np.linspace(1, 0, n2)[:, None]; return x
 for (src, s, e), o in zip(SEG, OFF):
-    if src == 'a' and s < 7:
+    if src == 'a' and s < 7.2:
         put(fade(load('w/a_clean.wav', 7.18, e - 7.18), 0.04), o + (7.18 - s))
     elif src == 'a':
         put(fade(load('w/a_clean.wav', s, e - s)), o)
@@ -344,8 +346,8 @@ def tick(freq=1750, gain=0.10):
     n = int(0.07 * SR); tt = np.arange(n) / SR
     x = np.sin(2 * np.pi * freq * tt) * np.exp(-tt * 70) * gain
     return np.stack([x, x], 1).astype(np.float32)
-vo = load('w/vo_clean.wav', -VO_OFF)
-put(fade(vo, 0.03, 0.2), 0.0)
+vo = load('w/vo_clean.wav', max(0, -VO_OFF))
+put(fade(vo, 0.03, 0.2), max(0, VO_OFF))
 bed = load('w/bed.wav')[:int((T_INTRO_END + 0.9) * SR)] * (10 ** ((41 - 31) / 20))
 put(fade(bed, 0.25, 0.6), 0.0)
 put(whoosh(0.45, 0.20), T_INTRO_END - 0.3)
