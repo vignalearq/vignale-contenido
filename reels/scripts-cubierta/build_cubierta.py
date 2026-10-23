@@ -24,8 +24,8 @@ def back(x):
     x = min(max(x, 0.0), 1.0); c = 1.9; return 1 + (c + 1) * (x - 1) ** 3 + c * (x - 1) ** 2
 
 # ---------------- montaje ----------------
-SEG = [('b', 1.40, 4.60), ('a', 0.00, 4.50), ('a', 7.10, 31.12), ('a', 32.08, 47.00), ('r', 0.0, 3.60)]
-VO_OFF = 2.63   # audio nuevo de Francisco: t_salida = t_vo + VO_OFF
+SEG = [('b', 0.00, 5.30), ('a', 7.10, 31.12), ('a', 32.08, 47.00), ('r', 0.0, 3.60)]
+VO_OFF = -0.12   # audio nuevo de Francisco: t_salida = t_vo + VO_OFF
 OFF = []; acc = 0
 for s in SEG:
     OFF.append(acc); acc += s[2] - s[1]
@@ -35,7 +35,7 @@ def A(t):  # tiempo del clip a -> tiempo de salida
         if src == 'a' and s - 0.05 <= t <= e + 0.05:
             return o + (t - s)
     raise ValueError(t)
-T_INTRO_END = OFF[1]; T_REM = OFF[4]; T_ANSWER = OFF[2]
+T_INTRO_END = OFF[1]; T_REM = OFF[3]; T_ANSWER = OFF[1]
 
 # ---------------- subtítulos (texto corregido, tiempos de whisper en el clip a) ----------------
 # '*' = palabra clave en Italiana
@@ -186,7 +186,7 @@ def rising(layer, text, font, cx, baseline, p, alpha=1.0):
 
 def draw_intro(layer, t):
     if t >= T_INTRO_END: return
-    TITLE_END = T_INTRO_END
+    TITLE_END = 3.2
     if t >= TITLE_END: return
     out = 1 - ease((t - (TITLE_END - 0.35)) / 0.35)
     pl = ease((t - 0.25) / 0.45)
@@ -265,7 +265,7 @@ def reader(path, ss, dur):
            '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-']
     return subprocess.Popen(cmd, stdout=subprocess.PIPE)
 
-SRC = {'a': 'b/a.mp4', 'b': 'b/drone.mp4', 'r': 'b/rem.mov'}
+SRC = {'a': 'b/a_sun.mp4', 'b': 'b/n.mp4', 'r': 'b/rem.mov'}
 enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS),
                         '-i', '-', '-c:v', 'libx264', '-crf', '17', '-preset', 'medium', '-pix_fmt', 'yuv420p', 'w/video.mp4'],
                        stdin=subprocess.PIPE)
@@ -282,6 +282,10 @@ for (src, s, e), o in zip(SEG, OFF):
         frame = last
         t = fi / FPS
         img = Image.fromarray(frame)
+        if src == 'b' and t < 1.7:
+            rad = 38 * (1 - ease(t / 1.7))
+            if rad > 0.3:
+                img = img.filter(ImageFilter.GaussianBlur(rad))
         if src == 'r':
             fin = ease(j / 8)
             arr = (np.asarray(img, np.float32) * fin).astype(np.uint8)
@@ -294,7 +298,7 @@ for (src, s, e), o in zip(SEG, OFF):
             img = img.transform((W, H), Image.EXTENT, (cx - cw / 2, cy - ch_ * 0.47, cx + cw / 2, cy + ch_ * 0.53), Image.BICUBIC)
         arr = np.asarray(img, np.float32)
         if src == 'b':
-            arr = arr * (1 - SHADE_FULL) * 0.85
+            arr = arr * (1 - SHADE_FULL)
         else:
             arr = arr * (1 - SHADE_FULL)
         img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8)).convert('RGBA')
@@ -352,6 +356,11 @@ vo = load('w/vo_clean.wav', max(0, -VO_OFF))
 put(fade(vo, 0.03, 0.2), max(0, VO_OFF))
 bed = load('w/bed.wav')[:int((T_ANSWER + 0.5) * SR)] * (10 ** ((41 - 31) / 20))
 put(fade(bed, 0.25, 0.6), 0.0)
+# música original de fondo: arriba en el arranque, muy de fondo debajo de la voz
+mus = load('w/music.wav')[:int(T_REM * SR) + SR // 2]
+tt = np.arange(len(mus)) / SR
+g = np.interp(tt, [0, 0.55, 1.0, T_REM - 0.6, T_REM + 0.4], [0.75, 0.75, 0.17, 0.17, 0.0])
+put(fade(mus * g[:, None].astype(np.float32), 0.05, 0.3), 0.0)
 put(whoosh(0.45, 0.20), T_INTRO_END - 0.3)
 for i, (n, tn) in enumerate(CAPAS):
     put(tick(1500 + 90 * i, 0.07), tn)
