@@ -12,7 +12,9 @@ VERDE = (0x36, 0x39, 0x32); WHITE = (244, 242, 236)
 VO = 1.8                       # la voz arranca en este segundo
 SRC = {'P': 'reels/reel-parador-paredes-arriba.mp4', 'L': 'historias/historia-lunes-de-obra-A.mp4',
        'Z': 'reels/reel-lanzamiento-web-SIN-MUSICA.mp4', 'B': 'ideas/reel-renovacion-bano.mp4',
-       'R': 'historias/historia-proyecto-direccion.mp4'}
+       'R': 'historias/historia-proyecto-direccion.mp4',
+       'K': 'historias/historia-trabajo-colon-car-wash.mp4', 'T': 'historias/historia-tramites.mp4',
+       'C': 'reels/reel-explicando-cubierta.mp4'}
 STD = (0, 285, 1080, 1350)
 def ease(u): u = min(1, max(0, u)); return u * u * (3 - 2 * u)
 def eout(u, p=3): u = min(1, max(0, u)); return 1 - (1 - u) ** p
@@ -34,20 +36,20 @@ CL = [
  (19.90, 'B', 2.5, (60, 40, 1000, 1250)),   # vereda: picando
  (20.50, 'B', 4.0, (60, 40, 1000, 1250)),   # vereda: colocando con hilo
  (21.60, 'L', 7.0, (0, 450, 1080, 1350)),   # volver a este espacio
- (23.50, 'B', 10.6, (60, 40, 1000, 1250)),  # el resultado
+ (23.50, 'K', 6.0, (40, 100, 1000, 1250)),  # el resultado (trabajo terminado)
  (24.90, 'L', 5.0, (0, 450, 1080, 1350)),   # todo el proceso
- (26.30, 'R', 4.9, (140, 60, 800, 1000)),   # cómo organizamos una obra
+ (26.30, 'T', 3.0, (140, 40, 800, 1000)),   # cómo organizamos una obra (planos)
  (27.60, 'L', 10.5, (0, 450, 1080, 1350)),  # decisiones
  (29.00, 'L', 9.0, (0, 450, 1080, 1350)),   # qué salió bien
  (29.95, 'L', 14.6, (0, 450, 1080, 1350)),  # qué haríamos distinto
  (30.80, 'L', 0.0, (0, 450, 1080, 1350)),   # compartiendo
- (33.20, 'B', 7.0, (60, 40, 1000, 1250)),   # colega / construcción / sumate
- (36.10, 'Z', 18.05, (40, 160, 880, 1100)), # los leo en los comentarios
- (37.60, 'P', 16.3, (0, 150, 1080, 1350)),  # bienvenidos (equipo)
+ (33.20, 'C', 34.6, (260, 320, 720, 900)),  # colega: colocando la chapa
+ (34.65, 'Z', 18.05, (40, 160, 880, 1100)), # te gusta la construcción
+ (36.00, 'P', 15.25, (0, 150, 1080, 1350)), # sumate / los leo / bienvenidos (equipo)
 ]
 T_REM = 39.05; REM_D = 3.6; TOTAL = T_REM + REM_D
 XF = 0.32
-AVAIL = {('P', 14.0): 1.0, ('P', 6.3): 1.5, ('P', 12.0): 1.0, ('P', 0.2): 1.95, ('P', 16.3): 1.65,
+AVAIL = {('P', 14.0): 1.0, ('P', 6.3): 1.5, ('P', 12.0): 1.0, ('P', 0.2): 1.95, ('P', 15.25): 2.7, ('C', 34.6): 1.6, ('K', 6.0): 2.4,
          ('B', 2.5): .8, ('B', 4.0): .95, ('L', 9.0): 1.3, ('L', 14.6): 1.15, ('Z', 18.05): 1.45}
 
 def grade(f):
