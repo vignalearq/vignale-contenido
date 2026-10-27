@@ -19,20 +19,20 @@ def eout(u, p=3): u = min(1, max(0, u)); return 1 - (1 - u) ** p
 
 # ---------- montaje (inicio en la salida, fuente, desde, caja de recorte 4:5) ----------
 CL = [
- (1.40, 'L', 12.0, (0, 450, 1080, 1350)),   # Monte Hermoso, panelizado superior
+ (1.90, 'L', 12.0, (0, 450, 1080, 1350)),   # Monte Hermoso, panelizado superior
  (4.00, 'R', 3.0, (140, 60, 800, 1000)),    # mesa con renders: empezó este camino
  (5.80, 'P', 2.0, STD),                      # clavando: sumando experiencias
  (7.60, 'L', 3.0, (0, 450, 1080, 1350)),    # cloaca: mejorar los procesos
  (9.40, 'P', 14.0, STD),                     # deck al sol
- (10.40, 'P', 8.0, STD),                     # 36 obras
+ (10.10, 'P', 8.0, (0, 420, 1080, 1350)),   # 36 obras
  (12.30, 'B', 10.2, (60, 40, 1000, 1250)),  # viviendas (baño terminado)
  (13.20, 'B', 5.6, (60, 40, 1000, 1250)),   # reformas (revestimiento)
  (14.30, 'R', 7.0, (100, 40, 880, 1100)),   # planos, accesos
  (16.60, 'P', 6.3, (0, 60, 1080, 1350)),    # y hasta un parador
- (17.75, 'P', 12.0, STD),                    # frente al mar
+ (17.75, 'P', 12.0, (0, 150, 1080, 1350)),  # frente al mar
  (18.25, 'P', 0.2, (0, 450, 1080, 1350)),   # Monte Hermoso
- (19.90, 'B', 2.45, (60, 40, 1000, 1250)),  # vereda: picando
- (20.60, 'B', 4.0, (60, 40, 1000, 1250)),   # vereda: colocando con hilo
+ (19.90, 'B', 2.5, (60, 40, 1000, 1250)),   # vereda: picando
+ (20.50, 'B', 4.0, (60, 40, 1000, 1250)),   # vereda: colocando con hilo
  (21.60, 'L', 7.0, (0, 450, 1080, 1350)),   # volver a este espacio
  (23.50, 'B', 10.6, (60, 40, 1000, 1250)),  # el resultado
  (24.90, 'L', 5.0, (0, 450, 1080, 1350)),   # todo el proceso
@@ -41,16 +41,14 @@ CL = [
  (29.00, 'L', 9.0, (0, 450, 1080, 1350)),   # qué salió bien
  (29.95, 'L', 14.6, (0, 450, 1080, 1350)),  # qué haríamos distinto
  (30.80, 'L', 0.0, (0, 450, 1080, 1350)),   # compartiendo
- (33.20, 'B', 7.0, (60, 40, 1000, 1250)),   # colega / construcción
- (35.00, 'P', 4.0, STD),                     # sumate
- (35.60, 'Z', 18.05, (40, 160, 880, 1100)), # los leo en los comentarios
- (37.60, 'P', 16.9, (0, 150, 1080, 1350)),  # bienvenidos
+ (33.20, 'B', 7.0, (60, 40, 1000, 1250)),   # colega / construcción / sumate
+ (36.10, 'Z', 18.05, (40, 160, 880, 1100)), # los leo en los comentarios
+ (37.60, 'P', 15.3, (0, 150, 1080, 1350)),  # bienvenidos (equipo)
 ]
 T_REM = 39.05; REM_D = 3.6; TOTAL = T_REM + REM_D
 XF = 0.32
-AVAIL = {('P', 12.0): .45, ('P', 4.0): .45, ('P', 14.0): .95, ('P', 6.3): 1.15, ('P', 16.9): 1.05,
-         ('B', 2.45): .7, ('B', 4.0): .95, ('L', 9.0): .95, ('Z', 18.05): 1.4,
-         ('L', 14.6): .9, ('P', 8.0): 1.95, ('P', 0.2): 1.75}
+AVAIL = {('P', 14.0): 1.0, ('P', 6.3): 1.5, ('P', 12.0): 1.0, ('P', 0.2): 1.95, ('P', 15.3): 2.6,
+         ('B', 2.5): .8, ('B', 4.0): .95, ('L', 9.0): 1.3, ('L', 14.6): 1.15, ('Z', 18.05): 1.45}
 
 def grade(f):
     f = f.astype(np.float32) / 255
@@ -131,16 +129,21 @@ def fbm(seed_shape, octaves):
 N1 = fbm(None, [180, 90, 40, 18]); N2 = fbm(None, [180, 90, 40, 18]); N3 = fbm(None, [120, 50, 20])
 
 def smoke(p, t):
-    """p=0 logo nítido; p=1 disipado. El humo sube, se enrosca y se desvanece."""
+    """p=0 logo nítido; p=1 disipado. Hilos de humo que suben, se enroscan y se abren."""
     if p <= 0: return LM
-    drift = 260 * p ** 1.3
-    sx = (xx + 70 * p * N1 + 30 * p * np.sin(yy / 60 + t * 2.0)).astype(np.float32)
-    sy = (yy + drift + 90 * p * N2).astype(np.float32)
-    m = cv2.remap(LM, sx, sy, cv2.INTER_LINEAR, borderValue=0)
-    m = cv2.GaussianBlur(m, (0, 0), 0.5 + 14 * p)
-    thr = np.clip(1.25 - 1.6 * p + 0.45 * N3, 0, 1)        # se va comiendo por partes
-    m = m * thr * (1 + 0.6 * p)
-    return np.clip(m, 0, 1) * (1 - ease((p - 0.55) / 0.45))
+    out = np.zeros_like(LM)
+    for k, (rise, curl, spread, wgt) in enumerate([(380, 120, 1.0, 0.55), (560, 190, 1.5, 0.35), (260, 80, 0.7, 0.45)]):
+        q = p ** (1.2 + 0.2 * k)
+        ph = t * (1.3 + 0.4 * k)
+        sx = xx + curl * q * (N1 if k % 2 == 0 else N2) + 45 * q * np.sin(yy / (55 + 20 * k) + ph) * spread
+        sy = yy + rise * q + 120 * q * (N2 if k % 2 == 0 else N3) + 25 * q * np.cos(xx / 70 + ph)
+        m = cv2.remap(LM, sx.astype(np.float32), sy.astype(np.float32), cv2.INTER_LINEAR, borderValue=0)
+        m = cv2.GaussianBlur(m, (0, 0), 0.6 + (10 + 8 * k) * q)
+        w = (1 - q) if k == 0 else q * (1 - q) * 2.2
+        out += m * w * (wgt if k else 1.0)
+    thr = np.clip(1.3 - 1.5 * p + 0.5 * N3, 0, 1)
+    out = out * (0.35 + 0.65 * thr) * 1.25
+    return np.clip(out, 0, 1) * (1 - ease((p - 0.6) / 0.4))
 
 def comp(a, m, col=WHITE):
     out = a.astype(np.float32) * (1 - m[..., None]) + np.array(col, np.float32) * m[..., None]
@@ -151,10 +154,10 @@ def intro(t):
     vign = (1 - 0.35 * (((xx - W / 2) / W) ** 2 + ((yy - H / 2) / H) ** 2) * 2)[..., None]
     base = (base * vign).astype(np.uint8)
     if t >= CL[0][0]:
-        u = ease((t - CL[0][0]) / 1.1)
+        u = ease((t - CL[0][0]) / 1.0)
         base = cv2.addWeighted(base, 1 - u, blur(clip_at(0, t), 16 * (1 - u)), u, 0)
     al = eout(t / 0.7)
-    p = max(0.0, (t - 0.9) / 1.6)
+    p = max(0.0, (t - 0.8) / 2.2)
     return comp(base, smoke(min(p, 1.0), t) * al)
 
 # ---------- subtítulos ----------
@@ -271,7 +274,8 @@ def remate(t):
     R = _cache['rem']; return R[min(len(R) - 1, int((t - T_REM) * FPS))]
 
 # ---------- render ----------
-N = int(round(TOTAL * FPS))
+import os
+N = int(round(float(os.environ.get('UNTIL', TOTAL)) * FPS))
 tmpv = OUT + '.video.mp4'
 enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS),
                         '-i', '-', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '16', '-pix_fmt', 'yuv420p', tmpv],
@@ -289,6 +293,7 @@ for n in range(N):
     enc.stdin.write(np.ascontiguousarray(a).tobytes())
     if n % 150 == 0: print(f'{t:.1f}s', flush=True)
 enc.stdin.close(); enc.wait()
+if os.environ.get('UNTIL'): sys.exit(0)
 
 # ---------- audio: voz + música de fondo (baja debajo de la voz) ----------
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', tmpv, '-i', VOZ, '-i', MUS, '-filter_complex',
