@@ -43,7 +43,7 @@ CL = [
  (29.00, 'L', 9.0, (0, 450, 1080, 1350)),   # qué salió bien
  (29.95, 'L', 14.6, (0, 450, 1080, 1350)),  # qué haríamos distinto
  (30.80, 'L', 0.0, (0, 450, 1080, 1350)),   # compartiendo
- (33.20, 'C', 34.6, (260, 320, 720, 900)),  # colega: colocando la chapa
+ (33.20, 'C', 34.6, (300, 300, 640, 800)),  # colega: colocando la chapa
  (34.65, 'Z', 18.05, (40, 160, 880, 1100)), # te gusta la construcción
  (36.00, 'P', 15.25, (0, 150, 1080, 1350)), # sumate / los leo / bienvenidos (equipo)
 ]
