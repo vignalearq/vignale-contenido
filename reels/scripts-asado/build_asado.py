@@ -28,7 +28,7 @@ def back(x):
 # ---------------- montaje ----------------
 # piezas principales (imagen + audio sincronizados): (clip, in, out, modo)
 SEG = [('IMG_0419b', 3.70, 6.62, 'tv'), ('IMG_0419b', 9.72, 11.55, 'tv'),       # intro "televisión"
-       ('IMG_0416', 1.15, 12.65, 'talk'), ('IMG_0417', 1.25, 8.60, 'talk'),
+       ('IMG_0416', 1.15, 12.65, 'talk'), ('IMG_0417', 3.40, 8.60, 'talk'),
        ('IMG_0419a', 0.00, 6.70, 'talk')]                                       # cierre: yo + Manu con el parlante
 SOFF = []; acc = 0
 for c, a_, b_, m in SEG:
@@ -46,9 +46,7 @@ ov('IMG_9569', 0.40, OUT('IMG_0416', 4.00), OUT('IMG_0416', 5.05))   # "generalm
 ov('IMG_9564', 0.05, OUT('IMG_0416', 5.05), OUT('IMG_0416', 7.95))   # losa / techar
 ov('IMG_9568', 0.10, OUT('IMG_0416', 8.40), OUT('IMG_0416', 9.90))
 ov('IMG_0420', 0.00, OUT('IMG_0416', 9.90), OUT('IMG_0416', 10.50))
-ov('IMG_9567', 1.20, OUT('IMG_0417', 1.25), OUT('IMG_0417', 2.45))   # empanadas
-ov('IMG_9565', 0.00, OUT('IMG_0417', 3.40), OUT('IMG_0417', 4.75))   # los chicos
-ov('IMG_9566', 1.20, OUT('IMG_0417', 4.75), OUT('IMG_0417', 5.88))
+ov('IMG_9565', 0.00, OUT('IMG_0417', 4.40), OUT('IMG_0417', 5.88))   # los chicos
 V.append((T_REM, TOTAL, 'rem', 0.0, 'rem'))
 def piece_at(t):
     best = None
@@ -71,7 +69,6 @@ RAW += [L('IMG_0416', None, s) for s in [
     "O@7.26 TERMINÁS@7.46 DE@7.78 TECHAR*@7.88", "ACÁ@8.44 NO@8.58 TENEMOS@8.66 LOSA*@8.86",
     "ACÁ@9.94 EN@10.26 ESTE@10.48 CASO@10.6", "LO@10.78 ESTÁ@10.94 HACIENDO@11.04 EL@11.28 REY*@12.2"]]
 RAW += [L('IMG_0417', None, s) for s in [
-    "GENERALMENTE@1.44 EL@1.82 ASADO*@1.92 DE*@2.2 OBRA*@2.32", "ES@2.42 ESO,@2.56 CUANDO@2.7 TECHÁS*@2.88",
     "ACÁ@3.48 YA@3.64 TECHAMOS*@3.76", "HACE@4.12 UN@4.28 RATO@4.46 LARGO*@4.66", "ASÍ@5.24 QUE…@5.54",
     "CON@5.86 EL@5.94 ASADO@6.02 DEMORADOS*@6.14", "PERO@7.0 BIEN!@7.3"]]
 RAW.sort(key=lambda c: c[0][1])
@@ -319,6 +316,8 @@ for fi in range(NF):
     lay.alpha_composite(logo, (W - logo.width - 64, 230))
     img.alpha_composite(lay)
     rgb = np.asarray(img.convert('RGB'), np.float32)
+    kf = max(0.0, 1 - abs(t - T_17) / 0.13) * 0.6 if abs(t - T_17) < 0.13 else 0.0
+    if kf > 0: rgb = rgb + (np.array([255, 246, 228], np.float32) - rgb) * kf
     k = glitch_k(t)
     if k > 0: rgb = glitch(rgb, k, fi)
     enc.stdin.write(np.clip(rgb, 0, 255).astype(np.uint8).tobytes())
@@ -352,6 +351,12 @@ def noise_burst(dur, gain, lo=900, hi=7000):
     env = np.minimum(1, np.linspace(0, 6, n)) * np.linspace(1, 0.2, n); x = x / np.abs(x).max() * env * gain
     return np.stack([x, x], 1).astype(np.float32)
 put(noise_burst(0.38, 0.22), GL0)           # estática de la tele
+def whoosh(dur=0.45, gain=0.16):
+    n = int(dur * SR); x = rng.standard_normal(n).astype(np.float32)
+    X = np.fft.rfft(x); f = np.fft.rfftfreq(n, 1 / SR); X *= 1 / np.sqrt(np.maximum(f, 40)); x = np.fft.irfft(X, n)
+    env = np.sin(np.linspace(0, np.pi, n)) ** 2; x = x / np.abs(x).max() * env * gain
+    return np.stack([x, x], 1).astype(np.float32)
+put(whoosh(), T_17 - 0.26)
 tic = np.zeros((int(0.03 * SR), 2), np.float32); tic[:40] = 0.6; put(tic, T_X - 0.01)   # "tic"
 # canción: continua desde que arranca el color, alineada con el parlante de IMG_0419a
 song_start = SONG_AT_0419A - (T_A - T_X)     # continuo desde la transición, en fase con el parlante de Manu
